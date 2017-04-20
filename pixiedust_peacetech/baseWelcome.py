@@ -12,8 +12,8 @@ indicators = ["Economy", "Energy", "Law & Order", "Environment", "Labor"]
 @PixieApp
 @Logger()
 class BaseWelcome():
-    indicators = ["Economy", "Energy", "Law & Order", "Environment", "Labor"]
-    
+    indicators = ["Food", "Environment", "Civil Unrest", "Infrastructure", "Crime"]
+
     @cache(fieldName="_alerts")
     def getAlerts(self, startDate, endDate=None, location=None):
         if location is not None and endDate is not None:
