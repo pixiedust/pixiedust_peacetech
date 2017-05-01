@@ -33,61 +33,8 @@ class IndicatorEnrichment(BaseWelcome, NLCTrainer):
         
     @route(selectedCountry="*", listAlerts="*")
     def showListAlerts(self):
-        return """
-<table class="table table-condensed">
-    <thead>
-        <tr>
-            {%for col in this.listAlerts.columns%}
-            <th>{{col}}</th>
-            {%endfor%}
-            <th>Predicted Indicator</th>
-        </tr>
-    </thead>
-    <tbody>
-        {%for row in this.listAlerts.iterrows()%}
-        {%set rowIndex = loop.index%}
-        <tr>
-            {%for col in this.listAlerts.columns%}
-            <th class="{{col}}{{prefix}}">{{row[1][col]}}</th>
-            {%endfor%}
-            <th id="predictedIndicator{{rowIndex}}{{prefix}}" class="predictedIndicator{{prefix}}" url="{{row[1]['url']}}">
-                {%if loop.index < 20%}
-                {{this.classify(row[1]['url'])}}
-                {%endif%}
-            </th>
-        </tr>
-        {%endfor%}
-    </tbody>
-</table>
-<script>
-/*$(".predictedIndicator{{prefix}}").each(function(){
-    debugger;
-    pixiedust.executeDisplay({{pd_controls}}, {
-        "targetDivId": this.getAttribute("id")
-    });
-    $(this).text( this.getAttribute("url"));
-})*/
-</script>
-"""
+        self._addHTMLTemplate("enrichment/showListAlerts.html")
         
     @route(selectedCountry="*")
     def showAlerts(self):
-        return """
-<div class="row" style="max-height:{{'100%' if this.runInDialog else '500px'}};overflow:auto">
-    <div class="form-group col-sm-3" style="padding-right:10px;">
-        <ul class="nav nav-pills nav-stacked">
-            {%for key in this.alerts['key'].values.tolist()%}
-            <li class="{{'active' if loop.first else ''}}" pd_target="target{{prefix}}"
-                pd_refresh
-                pd_script="self.listAlerts = self.getAlert('{{key}}')">
-                <a href="#">{{key}}</a>
-            </li>
-            {%endfor%}
-        </ul>
-        
-    </div>
-    <div class="form-group col-sm-9">
-        <div id="target{{prefix}}"></div>
-    </div>
-</div>
-"""  
+        self._addHTMLTemplate("enrichment/showAlerts.html")
