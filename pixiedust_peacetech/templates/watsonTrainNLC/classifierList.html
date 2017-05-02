@@ -1,0 +1,92 @@
+<style>
+.pd_tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.pd_tooltip .pd_tooltiptext {
+    visibility: hidden;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    margin-left: -360px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.pd_tooltip .pd_tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.pd_tooltip:hover .pd_tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+</style>
+
+<div class="well">
+    <span style="font-size:x-large">List of Watson NLC classifiers</span>
+    <button style="float:right" pd_options="trainNLC=true" type="submit" class="btn btn-primary">
+        Train New Model with Watson NLC
+    </button>
+</div>
+
+{%for classifier in classifiers%}
+    {%if loop.first or ((loop.index % 4) == 1)%}
+<div class="row">
+    <div class="col-sm-2"/>
+    {%endif%}
+    {%set statusJSON = this.natural_language_classifier.status(classifier['classifier_id']) %}
+    <div class="col-sm-2" style="border: 1px solid lightblue;margin: 10px;border-radius: 25px;cursor:pointer;
+        min-height: 150px;background-color:#e6eeff;display: flex;align-items: center;">
+        <table style="margin-left:15px">
+            <tr>
+                <td style="padding:10px"><b>Model:</b></td>
+                <td>{{classifier['name'] or classifier['classifier_id']}}</td>
+            </tr>
+            <tr>
+                <td style="padding:10px"><b>Status:</b></td>
+                <td>{{statusJSON['status']}}</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="btn-group" style="float:right">
+                        <button type="button" class="btn btn-default" pd_script="self.removeClassifier('{{classifier['classifier_id']}}')">
+                            <i class="fa fa-trash"/>
+                        </button>
+                        <button type="button" class="pd_tooltip btn btn-default">
+                            <i class="fa fa-info"/>
+                            <span class="pd_tooltiptext">
+                                <table>
+                                {% for item in statusJSON %}
+                                    <tr>
+                                        <td><b>{{item}}</b></td>
+                                        <td>{{statusJSON[item]}}</td>
+                                    </tr>
+                                {% endfor %}
+                                </table>
+                            </span>
+                        </button>                        
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {%if loop.last or ((loop.index % 4) == 0)%}
+    <div class="col-sm-2"/>
+</div>
+    {%endif%}
+{%endfor%}
