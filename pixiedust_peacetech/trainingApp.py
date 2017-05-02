@@ -1,3 +1,4 @@
+from pixiedust.display.app import *
 from .baseWelcome import BaseWelcome
 from pixiedust.utils import Logger
 import requests
