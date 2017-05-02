@@ -12,7 +12,7 @@ class PixieAppBoard(BaseWelcome):
     # /places/search/{english name}
     
     def onCountrySelected(self):
-        self.pixieapp_entity=self.getAlerts("20170223", "20170406", self.selectedCountry)
+        self.pixieapp_entity=self.getAlerts(self.selectedCountry)
         self.pixieapp_entity['count']=1
         self.alerts=self.pixieapp_entity
         if self.selectedCountry == "23424802":

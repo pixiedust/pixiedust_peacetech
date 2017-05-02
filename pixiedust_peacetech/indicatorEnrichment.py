@@ -2,6 +2,7 @@ from pixiedust.display.app import *
 from pixiedust import Logger
 from pixiedust_peacetech import *
 from pixiedust_peacetech.watsonTrainNLCApp import NLCTrainer
+from .storedAlerts import StoredAlerts
 import requests
 from bs4 import BeautifulSoup
 
@@ -29,7 +30,8 @@ class IndicatorEnrichment(BaseWelcome, NLCTrainer):
         message = self.initNLC();
         if message is not None:
             return message
-        self.alerts=self.getAlerts("20170223", "20170406", self.selectedCountry)
+        self.alerts=self.getAlerts(self.selectedCountry)
+        self.storedAlerts = StoredAlerts(self.selectedCountry)
         
     @route(selectedCountry="*", listAlerts="*")
     def showListAlerts(self):

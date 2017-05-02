@@ -10,7 +10,7 @@ class PeaceTechTraining(BaseWelcome):
             "title": "Training Data Generation"
         }
     def onCountrySelected(self):
-        self.alerts=self.getAlerts("20170223", "20170406", self.selectedCountry)
+        self.alerts=self.getAlerts(self.selectedCountry)
         self.alertIterator = enumerate(self.alerts['key'].values.tolist())
         self.tweetUrlIterator = None
         
