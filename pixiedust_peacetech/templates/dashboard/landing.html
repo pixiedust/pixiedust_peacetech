@@ -1,0 +1,77 @@
+<style>
+  .landing {
+    text-align: center;
+  }
+  .landing img {
+    margin: 50px;
+  }
+  .profile-description li {
+    list-style: none;
+  }
+</style>
+<div pixiedust="{{pd_controls|htmlAttribute}}" class="landing">
+  <div class="row">
+    <div class="col-sm-12">
+      <img src="/img/groundTruth-logo-banner.png"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-4">
+          <button type="button" class="btn btn-danger btn-lg">
+            User Profile 1
+            <pd_script>
+self.selectProfile("profile1")
+            </pd_script>
+          </button>
+          <div class="profile-description">
+            <h3>Profile Description</h3>
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" class="btn btn-danger btn-lg">
+            User Profile 2
+            <pd_script>
+self.selectProfile("profile2")
+            </pd_script>
+          </button>
+          <div>
+            <h3>Profile Description</h3>
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" class="btn btn-danger btn-lg">
+            User Profile 3
+            <pd_script>
+self.selectProfile("profile3")
+            </pd_script>
+          </button>
+          <div>
+            <h3>Profile Description</h3>
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+  <div>
+</div>

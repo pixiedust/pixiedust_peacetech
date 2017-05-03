@@ -11,6 +11,13 @@ class PixieAppBoard(BaseWelcome):
     # colombia is 23424787 and egypt is 23424802
     # /places/search/{english name}
     
+    def selectProfile(self, profile):
+        if profile == "profile1":
+            self.selectedCountry = "23424802"
+        else:
+            self.selectedCountry = "23424787"
+        self.onCountrySelected()
+
     def onCountrySelected(self):
         self.pixieapp_entity=self.getAlerts(self.selectedCountry)
         self.pixieapp_entity['count']=1
@@ -18,7 +25,7 @@ class PixieAppBoard(BaseWelcome):
         if self.selectedCountry == "23424802":
             self.countryName = "Egypt"
         else:
-            self.countryName = "Columbia"
+            self.countryName = "Colombia"
     
     def showWatsonResults(self):
         if self.alert is None:
@@ -49,3 +56,7 @@ class PixieAppBoard(BaseWelcome):
     @route(selectedCountry="*")
     def routeWelcome(self):
         return self._addHTMLTemplate("dashboard/main.html")
+
+    @route()
+    def startPage(self):
+        return super(PixieAppBoard, self).baseWelcome("dashboard/landing.html")
