@@ -1,113 +1,247 @@
-<div pixiedust="{{pd_controls|htmlAttribute}}" style="height:100%;">
-<ul class="nav nav-tabs" style="margin:0;padding-right:2em;">
-  <li><a data-toggle="tab" href="#pane-dist-{{prefix}}" pixiedust>
-      Disruption Dashboard
-      <target pd_target="pane-dist1{{prefix}}" pd_entity
-        pd_options="debug=True;handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=100;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
-          <pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
-            <target pd_target="pane-dist2{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
-            <target pd_target="pane-dist3{{prefix}}" pd_script="self.showWatsonResults()"/>
-          </pd_event_handler>
-      </target>
-      <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/>
-      <target pd_target="pane-dist3{{prefix}}" pd_entity pd_options="handlerId=scatterPlot;rendererId=mapbox;keyFields=evtDate;valueFields=genDate;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
-      <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
-    </a></li>
-  <li><a data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
-      GroundTruth Explorer
-      <target pd_target="pane-gt1{{prefix}}" pd_entity
-        pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
-      <target pd_target="pane-gt2{{prefix}}" pd_entity
-        pd_options="debug=True;handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=100;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
-      </target>
-      <target pd_target="pane-gt3{{prefix}}" pd_entity
-        pd_options="handlerId=lineChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
+<style>
+  .dashboard,
+  .dashboard .tab-pane,
+  .dashboard .tab-pane > div {
+    height: 100%;
+  }
+  .dashboard .nav-tabs {
+    margin: 0;
+    padding-right: 2em;
+  }
+  .dashboard .nav-tabs > li:last-child {
+    float: right;
+  }
+  .dashboard .nav-tabs li .dropdown {
+    display: inline-block;
+    margin-right: 35px;
+  }
+  .dashboard .nav-tabs li .dropdown a {
+    color: #000;
+  }
+  .dashboard .nav-tabs li a {
+    border-color: transparent;
+    cursor: default;
+    font-weight: 600;
+  }
+  .dashboard .nav-tabs .dropdown-menu a:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: #fff;
+  }
+  .dashboard .tab-content {
+    height: calc(100% - 25px);
+    padding: 5px;
+  }
+  .dashboard .tab-pane {
+    height: 100%;
+  }
+  .vis-wrapper {
+    background: #fff;
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 5px;
+  }
+  .vis-wrapper .vis-title {
+    border-bottom: 1px solid #152935;
+    color: #152935;
+    font-size: 1.25em;
+    font-weight: 400;
+    padding: 10px 0px 5px;
+  }
+  .vis-wrapper .vis-stage {
+    overflow: hidden;
+    position: relative;
+    margin: 10px 0px 5px;
+  }
+  .vis-wrapper-dist1 {
+    height: calc(60vh - 150px);
+    margin-left: 0px;
+  }
+  .vis-wrapper-dist2 {
+    height: calc(40vh - 150px);
+    margin-left: 0px;
+    overflow: auto;
+  }
+  .vis-wrapper-dist3,
+  .vis-wrapper-dist4 {
+    height: calc(50vh - 150px);
+    margin-right: 0px;
+  }
+  .vis-wrapper-gt1 {
+    height: calc(100vh - 285px);
+    margin-left: 0px;
+  }
+  .vis-wrapper-gt2 {
+    height: calc(100vh - 385px);
+  }
+  .vis-wrapper-gt2 button {
+    width: 100%;
+    height: 75px;
+    margin-bottom: 20px;
+  }
+  .vis-wrapper-gt3,
+  .vis-wrapper-gt4 {
+    height: calc(45vh - 150px);
+  }
+  .vis-wrapper-gt5,
+  .vis-wrapper-gt6 {
+    height: calc(45vh - 150px);
+    margin-right: 0px;
+  }
+  .vis-wrapper-gt7 {
+    height: calc(22vh - 150px);
+    margin-right: 0px;
+  }
+</style>
+<div pixiedust="{{pd_controls|htmlAttribute}}" class="dashboard">
+  <ul class="nav nav-tabs">
+    <li><a data-toggle="tab" href="#pane-dist-{{prefix}}" pixiedust>
+        Disruption Dashboard
+        <target pd_target="pane-dist1{{prefix}}" pd_entity
+          pd_options="debug=True;handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=100;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+            <pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
+              <target pd_target="pane-dist2{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
+              <target pd_target="pane-dist3{{prefix}}" pd_script="self.showWatsonResults()"/>
+            </pd_event_handler>
+        </target>
+        <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/>
+        <target pd_target="pane-dist3{{prefix}}" pd_entity pd_options="handlerId=scatterPlot;rendererId=mapbox;keyFields=evtDate;valueFields=genDate;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
+        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
       </a></li>
-  <li class="dropdown disabled" style="float:right;">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="border-color:transparent;cursor:default;font-weight:600;">{{entity.countryName}}
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-      <li><a href="#">Egypt</a></li>
-      <li><a href="#">Columbia</a></li>
-    </ul>
-  </li>
-</ul>
+    <li><a data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
+        GroundTruth Explorer
+        <target pd_target="pane-gt3{{prefix}}" pd_entity
+          pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
+        <target pd_target="pane-gt4{{prefix}}" pd_entity
+          pd_options="debug=True;handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=100;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+        </target>
+        <target pd_target="pane-gt5{{prefix}}" pd_entity
+          pd_options="handlerId=lineChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
+        </a></li>
+    <li class="disabled">
+      <div class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{entity.countryName}}
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">
+              Egypt
+              <pd_script>
+self.selectedCountry="23424802"
+self.onCountrySelected()
+              </pd_script>
+            </a></li>
+          <li><a href="#">
+              Colombia
+              <pd_script>
+self.selectedCountry="23424787"
+self.onCountrySelected()
+              </pd_script>
+            </a></li>
+        </ul>
+      </div>
+      <input type="date" name="startDate" value="{{this.startDate.strftime("%Y-%m-%d")}}">
+      <input type="date" name="endDate" value="{{this.endDate.strftime("%Y-%m-%d")}}">
+    </li>
+  </ul>
 
-<div class="tab-content" style="height:calc(100% - 25px);padding:5px;">
-  <div id="pane-welcome-{{prefix}}" class="row tab-pane" style="height: 100%">
-    <div class="col-sm-12" style="height: 100%">
-      <div style="height:60%;overflow:auto;padding:5px;">
+  <div class="tab-content container-fluid">
+    <div id="pane-ctry-{{prefix}}" class="row tab-pane tab-pane-ctry fade in active" >
+      <div class="col-sm-12">
         <p><strong>Welcome</strong></p>
-        <p>{{entity.alerts|length}} alerts available</p>
       </div>
     </div>
-  </div>
-  
-  <div id="pane-ctry-{{prefix}}" class="row tab-pane fade in active" style="height: 100%">
-    <div id="pane-ctry1{{prefix}}" style="height:100%;width:100%;overflow:auto;padding:5px;">
-      <p><strong>Welcome</strong></p>
-    </div>
-  </div>
-  
-  <div id="pane-dist-{{prefix}}" class="row tab-pane" style="height: 100%">
-    <div class="col-sm-7" style="height: 100%">
-      <div id="pane-dist1{{prefix}}" style="height:60%;overflow:auto;padding:5px;"></div>
-      <div id="pane-dist2{{prefix}}" style="height:39%;overflow:auto;padding:5px;"></div>
-    </div>
-    <div class="col-sm-5" style="height: 100%">
-      <div id="pane-dist3{{prefix}}" style="height:48%;overflow:auto;padding:5px;"></div>
-      <div id="pane-dist4{{prefix}}" style="height:48%;overflow:auto;padding:5px;"></div>
-    </div>
-  </div>
-  
-  <div id="pane-gt-{{prefix}}" class="row tab-pane" style="height: 100%">
-      <div style="height:100%;padding:5px;" class="col-md-2">
-        <div class="panel panel-default" style="height:100%;margin:0">
-          <div class="panel-body">
-            <div style="padding-bottom: 20px;"><strong>Top Indicators</strong></div>
-            <ul class="nav nav-pills nav-stacked">
-              <li class="active" role="presentation"><a href="#">Food</a></li>
-              <li role="presentation"><a href="#">Environment</a></li>
-              <li role="presentation"><a href="#">Civil Unrest</a></li>
-              <li role="presentation"><a href="#">Social Issues</a></li>
-              <li role="presentation"><a href="#">Infrastructure</a></li>
-              <li role="presentation"><a href="#">Crime</a></li>
-            </ul>
+    
+    <div id="pane-dist-{{prefix}}" class="row tab-pane tab-pane-dist" >
+      <div class="col-sm-7" >
+        <div class="row">
+          <div class="col-sm-12">
+            <div id="pane-dist1{{prefix}}" class="vis-wrapper vis-wrapper-dist1"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div id="pane-dist2{{prefix}}" class="vis-wrapper vis-wrapper-dist2"></div>
           </div>
         </div>
       </div>
-      <div style="height:100%;padding:5px;" class="col-md-2">
-        <div class="panel panel-default" style="height:100%;margin:0">
-          <div class="panel-body">
-            <div style="padding-bottom: 20px;"><strong>Outcomes</strong></div>
-            <button type="button" class="btn btn-danger btn-lg" style="width:100%;height:75px;margin-bottom:20px;">Service Disruption</button>
-            <button type="button" class="btn btn-warning btn-lg" style="width:100%;height:75px;margin-bottom:20px;">Labor Disruption</button>
-            <button type="button" class="btn btn-info btn-lg" style="width:100%;height:75px;margin-bottom:20px;">Supply Chain Disruption</button>
+      <div class="col-sm-5" >
+        <div class="row">
+          <div class="col-sm-12">
+            <div id="pane-dist3{{prefix}}" class="vis-wrapper vis-wrapper-dist3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div id="pane-dist4{{prefix}}" class="vis-wrapper vis-wrapper-dist4"></div>
           </div>
         </div>
       </div>
-      <div style="height:100%;padding:5px;" class="col-md-8">
-        <div class="panel panel-default" style="height:100%;margin:0">
-            <div style="border-bottom:1px solid #ddd;padding:5px;" class="row">
-              <strong>Status:</strong>
+    </div>
+    
+    <div id="pane-gt-{{prefix}}" class="row tab-pane tab-pane-gt" >
+      <div class="col-md-2">
+        <div class="row">
+          <div class="col-sm-12">
+            <div id="pane-gt1{{prefix}}" class="vis-wrapper vis-wrapper-gt1">
+              <ul class="nav nav-pills nav-stacked">
+                <li class="active" role="presentation"><a href="#">Food</a></li>
+                <li role="presentation"><a href="#">Environment</a></li>
+                <li role="presentation"><a href="#">Civil Unrest</a></li>
+                <li role="presentation"><a href="#">Social Issues</a></li>
+                <li role="presentation"><a href="#">Infrastructure</a></li>
+                <li role="presentation"><a href="#">Crime</a></li>
+              </ul>
             </div>
-            <div style="height:40%;padding:5px;" class="row">
-              <div id="pane-gt1{{prefix}}" style="height:100%;padding:5px;" class="col-md-6"></div>
-              <div id="pane-gt2{{prefix}}" style="height:100%;padding:5px;" class="col-md-6"></div>
-            </div>
-            <div style="height: 40%;padding:5px;" class="row">
-              <div style="height:100%;padding:5px;" class="col-md-6"></div>
-              <div id="pane-gt3{{prefix}}" style="height:100%;padding:5px;" class="col-md-3"></div>
-              <div style="height:100%;padding:5px;border: 1px solid #ddd; border-radius: 2px;" class="col-md-3">
-                <strong>Local Resources: </strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="pane-gt2{{prefix}}" class="vis-wrapper vis-wrapper-gt2">
+                  <button type="button" class="btn btn-danger btn-lg">Service Disruption</button>
+                  <button type="button" class="btn btn-warning btn-lg">Labor Disruption</button>
+                  <button type="button" class="btn btn-info btn-lg">Supply Chain Disruption</button>
+                </div>
               </div>
             </div>
-            <div style="border-top:1px solid #ddd;padding:5px;height:12%;" class="row">
-              <strong>Expert Commentary</strong>
+          </div>
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="pane-gt3{{prefix}}" class="vis-wrapper vis-wrapper-gt3"></div>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="pane-gt4{{prefix}}" class="vis-wrapper vis-wrapper-gt4"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="pane-gt5{{prefix}}" class="vis-wrapper vis-wrapper-gt5"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="pane-gt6{{prefix}}" class="vis-wrapper vis-wrapper-gt6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="pane-gt7{{prefix}}" class="vis-wrapper vis-wrapper-gt7">
+              commentary
+            </div>
+          </div>
         </div>
       </div>
+    </div>
   </div>
-</div>
 </div>

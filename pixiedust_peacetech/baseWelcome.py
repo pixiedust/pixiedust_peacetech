@@ -15,7 +15,7 @@ indicators = ["Economy", "Energy", "Law & Order", "Environment", "Labor"]
 class BaseWelcome():
     indicators = ["Food", "Environment", "Civil Unrest", "Infrastructure", "Crime"]
 
-    @cache(fieldName="_alerts")
+    # @cache(fieldName="_alerts")
     def getAlerts(self, location=None):
         startDate = self.startDate.strftime("%Y%m%d")
         endDate = self.endDate.strftime("%Y%m%d")
@@ -39,10 +39,10 @@ class BaseWelcome():
         pass
     
     @route()
-    def baseWelcome(self):
+    def baseWelcome(self, landingPage="baseWelcome.html", **kwargs):
         if ShellAccess.headers is None:
             return "<div>Error, you must define the GroudTruth DataHub credentials in a variable called headers</div>"
 
         self.endDate = datetime.today()
         self.startDate = self.endDate - timedelta(days=14)
-        self._addHTMLTemplate("baseWelcome.html")
+        self._addHTMLTemplate(landingPage, **kwargs)
