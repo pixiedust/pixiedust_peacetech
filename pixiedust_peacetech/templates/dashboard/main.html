@@ -91,6 +91,51 @@
     height: 10vh;
     margin-right: 0px;
   }
+  .vis-wrapper-gt2 > div {
+    clear: both;
+  }
+  .vis-wrapper-gt2 > div:nth-child(2n) .status-gauge {
+    float: right;
+  }
+
+  .status-gauge {
+    background-color: #ff6347;
+    border-radius: 50%;
+    height: 140px;
+    margin: 0 5px;
+    position: relative;
+    width: 140px;
+  }
+
+  .status-gauge > div {
+    background-color: #fff;
+    border-radius: 50%;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding-top: 30px;
+    position: absolute;
+    text-align: center;
+    width: 100px;
+  }
+  .status-0 {
+    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(90deg, #91CF60 50%, #eee 50%, #eee);
+  }
+  .status-25 {
+    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(180deg, #91CF60 50%, #eee 50%, #eee);
+  }
+  .status-50 {
+    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(270deg, #91CF60 50%, #eee 50%, #eee);
+  }
+  .status-75 {
+    background-image: linear-gradient(0deg, #FEE08B 50%, transparent 50%, transparent), linear-gradient(270deg, #FEE08B 50%, #eee 50%, #eee);
+  }
+  .status-90 {
+    background-image: linear-gradient(54deg, #F55666 50%, transparent 50%, transparent), linear-gradient(270deg, #F55666 50%, #eee 50%, #eee);
+  }
+  .status-100 {
+    background-image: linear-gradient(90deg, #F55666 50%, transparent 50%, transparent), linear-gradient(270deg, #F55666 50%, #eee 50%, #eee);
+  }
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="dashboard">
   <ul class="nav nav-tabs">
@@ -177,11 +222,11 @@ self.updateCountry("23424787")
             <div id="pane-gt1{{prefix}}" class="vis-wrapper vis-wrapper-gt1">
               <ul class="nav nav-pills nav-stacked">
                 <li class="active" role="presentation"><a href="#">Food</a></li>
+                <li role="presentation"><a href="#">Infrastructure</a></li>
                 <li role="presentation"><a href="#">Environment</a></li>
                 <li role="presentation"><a href="#">Civil Unrest</a></li>
-                <li role="presentation"><a href="#">Social Issues</a></li>
-                <li role="presentation"><a href="#">Infrastructure</a></li>
                 <li role="presentation"><a href="#">Crime</a></li>
+                <li role="presentation"><a href="#">Social Issues</a></li>
               </ul>
             </div>
           </div>
@@ -193,9 +238,15 @@ self.updateCountry("23424787")
             <div class="row">
               <div class="col-sm-12">
                 <div id="pane-gt2{{prefix}}" class="vis-wrapper vis-wrapper-gt2">
-                  <button type="button" class="btn btn-danger btn-lg">Service Disruption</button>
-                  <button type="button" class="btn btn-warning btn-lg">Labor Disruption</button>
-                  <button type="button" class="btn btn-info btn-lg">Supply Chain Disruption</button>
+                  <div>
+                    <div class="status-gauge status-90"><div>90%<br>Food prices</div></div>
+                  </div>
+                  <div>
+                    <div class="status-gauge status-50"><div>50%<br>Food production</div></div>
+                  </div>
+                  <div>
+                    <div class="status-gauge status-75"><div>75%<br>Crop failure</div></div>
+                  </div>
                 </div>
               </div>
             </div>
