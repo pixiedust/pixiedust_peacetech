@@ -1,0 +1,10 @@
+<div style="text-align:center" id="enrichmentStatus{{prefix}}"></div>
+<progress id="enrichmentProgress{{prefix}}" max="{{this.alerts|length - 1}}" value="0" style="height:0.3em;width:100%">
+</progress>
+
+<div style="text-align:center" id="results{{prefix}}">
+    <button type="submit" class="btn btn-primary" pd_norefresh style="width:80%;height:50px;margin-bottom:20px;">
+        <pd_script>self.doEnrichment=False</pd_script>
+        Cancel
+    </button>
+</div>
