@@ -19,7 +19,6 @@
     color: #000;
   }
   .dashboard .nav-tabs li a {
-    border-color: transparent;
     cursor: default;
     font-weight: 600;
   }
@@ -29,7 +28,7 @@
     color: #fff;
   }
   .dashboard .tab-content {
-    height: calc(100% - 25px);
+    height: calc(100% - 40px);
     padding: 5px;
   }
   .dashboard .tab-pane {
@@ -54,25 +53,25 @@
     margin: 10px 0px 5px;
   }
   .vis-wrapper-dist1 {
-    height: calc(60vh - 150px);
+    height: calc(60vh - 90px);
     margin-left: 0px;
   }
   .vis-wrapper-dist2 {
-    height: calc(40vh - 150px);
+    height: calc(40vh - 90px);
     margin-left: 0px;
     overflow: auto;
   }
   .vis-wrapper-dist3,
   .vis-wrapper-dist4 {
-    height: calc(50vh - 150px);
+    height: calc(50vh - 90px);
     margin-right: 0px;
   }
   .vis-wrapper-gt1 {
-    height: calc(100vh - 285px);
+    height: calc(100vh - 160px);
     margin-left: 0px;
   }
   .vis-wrapper-gt2 {
-    height: calc(100vh - 385px);
+    height: calc(100vh - 280px);
   }
   .vis-wrapper-gt2 button {
     width: 100%;
@@ -81,42 +80,87 @@
   }
   .vis-wrapper-gt3,
   .vis-wrapper-gt4 {
-    height: calc(45vh - 150px);
+    height: calc(50vh - 150px);
   }
   .vis-wrapper-gt5,
   .vis-wrapper-gt6 {
-    height: calc(45vh - 150px);
+    height: calc(50vh - 150px);
     margin-right: 0px;
   }
   .vis-wrapper-gt7 {
-    height: calc(22vh - 150px);
+    height: 100px;
     margin-right: 0px;
+  }
+  .vis-wrapper-gt2 > div {
+    clear: both;
+  }
+  .vis-wrapper-gt2 > div:nth-child(2n) .status-gauge {
+    float: right;
+  }
+
+  .status-gauge {
+    background-color: #ff6347;
+    border-radius: 50%;
+    height: 140px;
+    margin: 0 5px;
+    position: relative;
+    width: 140px;
+  }
+
+  .status-gauge > div {
+    background-color: #fff;
+    border-radius: 50%;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding-top: 30px;
+    position: absolute;
+    text-align: center;
+    width: 100px;
+  }
+  .status-0 {
+    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(90deg, #91CF60 50%, #eee 50%, #eee);
+  }
+  .status-25 {
+    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(180deg, #91CF60 50%, #eee 50%, #eee);
+  }
+  .status-50 {
+    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(270deg, #91CF60 50%, #eee 50%, #eee);
+  }
+  .status-75 {
+    background-image: linear-gradient(0deg, #FEE08B 50%, transparent 50%, transparent), linear-gradient(270deg, #FEE08B 50%, #eee 50%, #eee);
+  }
+  .status-90 {
+    background-image: linear-gradient(54deg, #F55666 50%, transparent 50%, transparent), linear-gradient(270deg, #F55666 50%, #eee 50%, #eee);
+  }
+  .status-100 {
+    background-image: linear-gradient(90deg, #F55666 50%, transparent 50%, transparent), linear-gradient(270deg, #F55666 50%, #eee 50%, #eee);
   }
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="dashboard">
   <ul class="nav nav-tabs">
-    <li><a data-toggle="tab" href="#pane-dist-{{prefix}}" pixiedust>
+    <li><a id="nav-dist-{{prefix}}" data-toggle="tab" href="#pane-dist-{{prefix}}" pixiedust>
         Disruption Dashboard
         <target pd_target="pane-dist1{{prefix}}" pd_entity
-          pd_options="debug=True;handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=100;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
             <pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
               <target pd_target="pane-dist2{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
               <target pd_target="pane-dist3{{prefix}}" pd_script="self.showWatsonResults()"/>
             </pd_event_handler>
         </target>
         <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/>
-        <target pd_target="pane-dist3{{prefix}}" pd_entity pd_options="handlerId=scatterPlot;rendererId=mapbox;keyFields=evtDate;valueFields=genDate;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
-        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
+        <target pd_target="pane-dist3{{prefix}}" pd_entity pd_options="handlerId=scatterPlot;rendererId=mapbox;keyFields=evtDate;valueFields=genDate;aggregation=SUM;rowCount=1000;nostore_figureOnly=true"/>
+        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;aggregation=SUM;rowCount=1000;legend=false;nostore_figureOnly=true"/>
       </a></li>
-    <li><a data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
+    <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
         <target pd_target="pane-gt3{{prefix}}" pd_entity
-          pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
+          pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=1000;nostore_figureOnly=true"/>
         <target pd_target="pane-gt4{{prefix}}" pd_entity
-          pd_options="debug=True;handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=100;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
         </target>
         <target pd_target="pane-gt5{{prefix}}" pd_entity
-          pd_options="handlerId=lineChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=100;nostore_figureOnly=true"/>
+          pd_options="handlerId=lineChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=1000;nostore_figureOnly=true"/>
         </a></li>
     <li class="disabled">
       <div class="dropdown">
@@ -127,15 +171,13 @@
           <li><a href="#">
               Egypt
               <pd_script>
-self.selectedCountry="23424802"
-self.onCountrySelected()
+self.updateCountry("23424802")
               </pd_script>
             </a></li>
           <li><a href="#">
               Colombia
               <pd_script>
-self.selectedCountry="23424787"
-self.onCountrySelected()
+self.updateCountry("23424787")
               </pd_script>
             </a></li>
         </ul>
@@ -146,13 +188,7 @@ self.onCountrySelected()
   </ul>
 
   <div class="tab-content container-fluid">
-    <div id="pane-ctry-{{prefix}}" class="row tab-pane tab-pane-ctry fade in active" >
-      <div class="col-sm-12">
-        <p><strong>Welcome</strong></p>
-      </div>
-    </div>
-    
-    <div id="pane-dist-{{prefix}}" class="row tab-pane tab-pane-dist" >
+    <div id="pane-dist-{{prefix}}" class="row tab-pane tab-pane-dist fade in active" >
       <div class="col-sm-7" >
         <div class="row">
           <div class="col-sm-12">
@@ -186,11 +222,11 @@ self.onCountrySelected()
             <div id="pane-gt1{{prefix}}" class="vis-wrapper vis-wrapper-gt1">
               <ul class="nav nav-pills nav-stacked">
                 <li class="active" role="presentation"><a href="#">Food</a></li>
+                <li role="presentation"><a href="#">Infrastructure</a></li>
                 <li role="presentation"><a href="#">Environment</a></li>
                 <li role="presentation"><a href="#">Civil Unrest</a></li>
-                <li role="presentation"><a href="#">Social Issues</a></li>
-                <li role="presentation"><a href="#">Infrastructure</a></li>
                 <li role="presentation"><a href="#">Crime</a></li>
+                <li role="presentation"><a href="#">Social Issues</a></li>
               </ul>
             </div>
           </div>
@@ -202,9 +238,15 @@ self.onCountrySelected()
             <div class="row">
               <div class="col-sm-12">
                 <div id="pane-gt2{{prefix}}" class="vis-wrapper vis-wrapper-gt2">
-                  <button type="button" class="btn btn-danger btn-lg">Service Disruption</button>
-                  <button type="button" class="btn btn-warning btn-lg">Labor Disruption</button>
-                  <button type="button" class="btn btn-info btn-lg">Supply Chain Disruption</button>
+                  <div>
+                    <div class="status-gauge status-90"><div>90%<br>Food prices</div></div>
+                  </div>
+                  <div>
+                    <div class="status-gauge status-50"><div>50%<br>Food production</div></div>
+                  </div>
+                  <div>
+                    <div class="status-gauge status-75"><div>75%<br>Crop failure</div></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -245,3 +287,6 @@ self.onCountrySelected()
     </div>
   </div>
 </div>
+<script>
+  $('#nav-dist-{{prefix}}').click();
+</script>

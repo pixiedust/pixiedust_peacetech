@@ -52,7 +52,7 @@ class NLCTrainer(ConnectionWidget):
             for className,group in iteritems(groups):
                 rows = group.take(5)
                 for row in rows:
-                    f.write("{},{}\n".format(row["input"], row["class"]))
+                    f.write("{},{}\n".format(row["input"].encode("utf-8","ignore"), row["class"]))
                     
         self.natural_language_classifier.create(open("/Users/dtaieb/temp/train/egyptNLCTrain.csv","r"), language="ar")
         return """<div>Success submitted request, Training in Progress</div>"""

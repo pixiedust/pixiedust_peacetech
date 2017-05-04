@@ -1,5 +1,6 @@
 from pixiedust.display.app import *
 from pixiedust import Logger
+from pixiedust.utils.shellAccess import ShellAccess
 from pixiedust_peacetech import *
 from pixiedust_peacetech.watsonTrainNLCApp import NLCTrainer
 from .storedAlerts import StoredAlerts
@@ -13,7 +14,11 @@ from bs4 import BeautifulSoup
 @Logger()
 class IndicatorEnrichment(BaseWelcome, NLCTrainer):
     def setup(self):
-        self.enrichedAlerts=[]
+        pass
+
+    def saveToDash(self):
+        self.storedAlerts.saveToDash(self.enrichedAlerts, self.enrichedTweets)
+
     def classify(self,url):
         try:
             oembed = "https://publish.twitter.com/oembed?url={}".format(url)
@@ -49,18 +54,7 @@ class IndicatorEnrichment(BaseWelcome, NLCTrainer):
 
     @route(selectedCountry="*")
     def startEnrichment(self):
-        return """
-<div style="text-align:center;font-size:xx-large">
-59 Alerts found. Click start enrichment to proceed
-</div>
-
-<div style="text-align:center;margin-top:30px">
-<button type="submit" class="btn btn-primary" style="width:80%;height:75px;margin-bottom:20px;">
-    <pd_script>self.doEnrichment=True</pd_script>
-    Start Enrichment
-</button>
-</div>
-"""
+        self._addHTMLTemplate("enrichment/startEnrichment.html")
 
     @route(doEnrichment=True)
     def _doEnrichment(self):
@@ -106,40 +100,9 @@ class IndicatorEnrichment(BaseWelcome, NLCTrainer):
                 """.format(self.prefix, viewResultsFragment)))
         t = Thread(target=processAlerts)
         t.daemon = True
-        t.start()      
-        return """
-        <div style="text-align:center" id="enrichmentStatus{{prefix}}"></div>
-        <progress id="enrichmentProgress{{prefix}}" max="{{this.alerts|length - 1}}" value="0" style="height:0.3em;width:100%">
-        </progress>
-        
-        <div style="text-align:center" id="results{{prefix}}">
-            <button type="submit" class="btn btn-primary" pd_norefresh style="width:80%;height:50px;margin-bottom:20px;">
-                <pd_script>self.doEnrichment=False</pd_script>
-                Cancel
-            </button>
-        </div>
-        """
+        t.start()
+        self._addHTMLTemplate("enrichment/progress.html")
 
     @route(viewResults=True)
     def _viewResults(self):
-        return """
-<div class="row">
-    <div class="form-group col-sm-2" style="padding-right:10px;">    
-        <p>
-        <button type="submit" class="btn btn-primary" pd_target="results{{prefix}}" 
-            pd_options="handlerId=barChart;keyFields=class;valueFields=confidence;aggregation=COUNT;rowCount=500;rendererId=bokeh"
-            pd_entity="enrichedTweets"> Tweets By Classes
-        </button>
-        </p>
-        <p>
-        <button type="submit" class="btn btn-primary" pd_target="results{{prefix}}">
-            <pd_script>self.saveToDash()</pd_script>
-            Save to DashDB
-        </button>
-        </p>
-    </div>
-    <div class="form-group col-sm-10">
-        <div id="results{{prefix}}"></div>
-    </div>
-</div>
-"""
+        self._addHTMLTemplate("enrichment/viewResults.html")
