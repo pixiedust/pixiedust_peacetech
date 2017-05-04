@@ -5,73 +5,79 @@
   .landing img {
     margin: 50px;
   }
-  .profile-description li {
-    list-style: none;
+  .profile-wrapper {
+    padding: 15px;
+  }
+  .profile-wrapper > p {
+    font-size: 1.25em;
+    margin: 0.75em;
+    text-align: left;
+  }
+  .profile-wrapper .btn {
+    margin-top: 1.5em;
   }
 </style>
-<div pixiedust="{{pd_controls|htmlAttribute}}" class="landing">
+<div pixiedust="{{pd_controls|htmlAttribute}}" class="landing container">
   <div class="row">
     <div class="col-sm-12">
-      <img src="/img/groundTruth-logo-banner.png"/>
+      <img src="https://github.com/ibm-cds-labs/pixiedust_peacetech/raw/master/pixiedust_peacetech/img/groundTruth-logo-banner.png"/>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <div class="row">
-        <div class="col-sm-4">
-          <button type="button" class="btn btn-danger btn-lg">
-            User Profile 1
-            <pd_script>
-self.selectProfile("profile1")
-            </pd_script>
-          </button>
-          <div class="profile-description">
-            <h3>Profile Description</h3>
-            <ul>
-              <li>Item 1</li>
-              <li>Item 2</li>
-              <li>Item 3</li>
-              <li>Item 4</li>
-            </ul>
-          </div>
+        <div class="col-sm-4 profile-wrapper">
+          <h2>Profile 1</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Ut sed faucibus urna, eu fermentum nisi.
+            Vestibulum vehicula imperdiet tortor eu vestibulum.
+            In maximus id mauris id pellentesque.
+          </p>
+          <p>
+            <button type="button" class="btn btn-primary btn-lg">
+              Select
+              <pd_script>
+  self.selectProfile("profile1")
+              </pd_script>
+            </button>
+          </p>
         </div>
-        <div class="col-sm-4">
-          <button type="button" class="btn btn-danger btn-lg">
-            User Profile 2
-            <pd_script>
-self.selectProfile("profile2")
-            </pd_script>
-          </button>
-          <div class="profile-description">
-            <h3>Profile Description</h3>
-            <ul>
-              <li>Item 1</li>
-              <li>Item 2</li>
-              <li>Item 3</li>
-              <li>Item 4</li>
-            </ul>
-          </div>
+        <div class="col-sm-4 profile-wrapper">
+          <h2>Profile 2</h2>
+          <p>
+            Suspendisse posuere nisi vel molestie ultrices.
+            Suspendisse at hendrerit tellus.
+            Aenean viverra, turpis non mattis vulputate, massa justo blandit neque, non condimentum enim magna sit amet metus.
+            Nunc nunc felis, feugiat vel tempus quis, eleifend a lacus.
+          </p>
+          <p>
+            <button type="button" class="btn btn-primary btn-lg">
+              Select
+              <pd_script>
+  self.selectProfile("profile2")
+              </pd_script>
+            </button>
+          </p>
         </div>
-        <div class="col-sm-4">
-          <button type="button" class="btn btn-danger btn-lg">
-            User Profile 3
-            <pd_script>
-self.selectProfile("profile3")
-            </pd_script>
-          </button>
-          <div class="profile-description">
-            <h3>Profile Description</h3>
-            <ul>
-              <li>Item 1</li>
-              <li>Item 2</li>
-              <li>Item 3</li>
-              <li>Item 4</li>
-            </ul>
-          </div>
+        <div class="col-sm-4 profile-wrapper">
+          <h2>Profile 3</h2>
+          <p>
+            Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.
+            Nullam id dolor id nibh ultricies vehicula ut id elit.
+            Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+            Praesent commodo cursus magna.
+          </p>
+          <p>
+            <button type="button" class="btn btn-primary btn-lg">
+              Select
+              <pd_script>
+  self.selectProfile("profile1")
+              </pd_script>
+            </button>
+          </p>
         </div>
       </div>
     </div>
-    <div class="col-sm-2"></div>
   <div>
 </div>
