@@ -10,13 +10,6 @@ import requests
 class PixieAppBoard(BaseWelcome):
     # colombia is 23424787 and egypt is 23424802
     # /places/search/{english name}
-    
-    def selectProfile(self, profile):
-        if profile == "profile1":
-            self.selectedCountry = "23424802"
-        else:
-            self.selectedCountry = "23424787"
-        self.onCountrySelected()
 
     def onCountrySelected(self):
         self.pixieapp_entity=self.getAlerts(self.selectedCountry)
@@ -50,11 +43,25 @@ class PixieAppBoard(BaseWelcome):
     
     def getDialogOptions(self):
         return {
-            "title": "PeaceTech IBM GroundTruth"
+            "title": "PeaceTech IBM GroundTruth",
+            "maximize": "true"
         }
 
+    def selectProfile(self, profile):
+        self.selectedProfile = profile
+
+        if not hasattr(self, 'selectedCountry'):
+            self.selectedCountry = "23424802"
+
+        self.onCountrySelected()
+
+    def updateCountry(self, country):
+        self.selectedCountry = country
+        self.onCountrySelected()
+
     @route(selectedCountry="*")
-    def routeWelcome(self):
+    def routeDashboard(self):
+        # body = self.renderTemplate("dashboard/main.html")
         return self._addHTMLTemplate("dashboard/main.html")
 
     @route()
