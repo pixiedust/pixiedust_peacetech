@@ -149,8 +149,8 @@
             </pd_event_handler>-->
         </target>
        <!-- <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/> -->
-        <target pd_target="pane-dist3{{prefix}}" pd_entity pd_options="handlerId=scatterPlot;rendererId=mapbox;keyFields=evtDate;valueFields=genDate;aggregation=SUM;rowCount=1000;nostore_figureOnly=true"/>
-        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=false;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
+        <target pd_target="pane-dist3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
+        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer

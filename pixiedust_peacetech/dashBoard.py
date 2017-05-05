@@ -19,6 +19,7 @@ class PixieAppBoard(BaseWelcome):
             self.countryName = "Egypt"
         else:
             self.countryName = "Colombia"
+        self.newsstories=self.getNews()
     
     def showWatsonResults(self):
         if self.alert is None:
