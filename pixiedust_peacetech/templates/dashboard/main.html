@@ -142,15 +142,15 @@
     <li><a id="nav-dist-{{prefix}}" data-toggle="tab" href="#pane-dist-{{prefix}}" pixiedust>
         Disruption Dashboard
         <target pd_target="pane-dist1{{prefix}}" pd_entity
-          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
-            <pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
+          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;kind=densitymap;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+            <!--<pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
               <target pd_target="pane-dist2{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
               <target pd_target="pane-dist3{{prefix}}" pd_script="self.showWatsonResults()"/>
-            </pd_event_handler>
+            </pd_event_handler>-->
         </target>
-        <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/>
+       <!-- <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/> -->
         <target pd_target="pane-dist3{{prefix}}" pd_entity pd_options="handlerId=scatterPlot;rendererId=mapbox;keyFields=evtDate;valueFields=genDate;aggregation=SUM;rowCount=1000;nostore_figureOnly=true"/>
-        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;aggregation=SUM;rowCount=1000;legend=false;nostore_figureOnly=true"/>
+        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=false;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
@@ -182,8 +182,17 @@ self.updateCountry("23424787")
             </a></li>
         </ul>
       </div>
-      <input type="date" name="startDate" value="{{this.startDate.strftime("%Y-%m-%d")}}">
-      <input type="date" name="endDate" value="{{this.endDate.strftime("%Y-%m-%d")}}">
+      <input id = "sdDate{{prefix}}" type="date" name="startDate" value="{{this.startDate.strftime("%Y-%m-%d")}}">
+      <input id = "edDate{{prefix}}" type="date" name="endDate" value="{{this.endDate.strftime("%Y-%m-%d")}}">
+      <button type="submit" class="btn btn-primary">
+          Go
+          <pd_script>
+from datetime import datetime
+self.endDate = datetime.strptime($val(edDate{{prefix}}), "%Y-%m-%d")
+self.startDate = datetime.strptime($val(sdDate{{prefix}}), "%Y-%m-%d")
+self.onCountrySelected()
+          </pd_script>
+        </button>
     </li>
   </ul>
 
@@ -195,11 +204,11 @@ self.updateCountry("23424787")
             <div id="pane-dist1{{prefix}}" class="vis-wrapper vis-wrapper-dist1"></div>
           </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
           <div class="col-sm-12">
             <div id="pane-dist2{{prefix}}" class="vis-wrapper vis-wrapper-dist2"></div>
           </div>
-        </div>
+        </div>-->
       </div>
       <div class="col-sm-5" >
         <div class="row">

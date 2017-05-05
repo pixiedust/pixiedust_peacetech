@@ -43,7 +43,7 @@ class PixieAppBoard(BaseWelcome):
     
     def getDialogOptions(self):
         return {
-            "title": "PeaceTech IBM GroundTruth",
+            "title": "groundTruth global",
             "maximize": "true"
         }
 
