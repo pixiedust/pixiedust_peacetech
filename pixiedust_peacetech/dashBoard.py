@@ -20,7 +20,8 @@ class PixieAppBoard(BaseWelcome):
         else:
             self.countryName = "Colombia"
         self.newsstories=self.getNews()
-    
+        self.violentalerts=self.alerts[self.alerts['violent'] == 'Violent']
+
     def showWatsonResults(self):
         if self.alert is None:
             print("No Audit Trail found")
