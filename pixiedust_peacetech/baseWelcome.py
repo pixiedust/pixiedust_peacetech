@@ -34,6 +34,13 @@ class BaseWelcome():
         resp = requests.get(baseUrl+"alerts/"+alertKey, headers=ShellAccess.headers).json()
         return self.normalize(resp)
     
+    def getNews(self):
+        startDate = self.startDate.strftime("%Y%m%d")
+        endDate = self.endDate.strftime("%Y%m%d")
+        woeid = self.selectedCountry
+        restUrl = "{0}demo/news?startDate={1}&endDate={2}&woeid={3}".format(baseUrl, startDate, endDate, woeid)
+        return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
+
     #subclass can override
     def onCountrySelected(self):
         pass

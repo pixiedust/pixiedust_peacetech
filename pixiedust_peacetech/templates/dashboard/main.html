@@ -149,18 +149,18 @@
             </pd_event_handler>-->
         </target>
        <!-- <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/> -->
-        <target pd_target="pane-dist3{{prefix}}" pd_entity pd_options="handlerId=scatterPlot;rendererId=mapbox;keyFields=evtDate;valueFields=genDate;aggregation=SUM;rowCount=1000;nostore_figureOnly=true"/>
-        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=false;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
+        <target pd_target="pane-dist3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
+        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
         <target pd_target="pane-gt3{{prefix}}" pd_entity
-          pd_options="handlerId=barChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=1000;nostore_figureOnly=true"/>
-        <target pd_target="pane-gt4{{prefix}}" pd_entity
-          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+          pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=populationType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+        <target pd_target="pane-gt5{{prefix}}" pd_entity="violentalerts"
+          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;preserveCols=key;aggregation=SUM;rowCount=1000;kind=densitymap;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
         </target>
-        <target pd_target="pane-gt5{{prefix}}" pd_entity
-          pd_options="handlerId=lineChart;rendererId=bokeh;keyFields=evtDate;valueFields=count;legend=false;aggregation=SUM;rowCount=1000;nostore_figureOnly=true"/>
+        <target pd_target="pane-gt4{{prefix}}" pd_entity
+          pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
         </a></li>
     <li class="disabled">
       <div class="dropdown">
@@ -230,10 +230,10 @@ self.onCountrySelected()
           <div class="col-sm-12">
             <div id="pane-gt1{{prefix}}" class="vis-wrapper vis-wrapper-gt1">
               <ul class="nav nav-pills nav-stacked">
-                <li class="active" role="presentation"><a href="#">Food</a></li>
+                <li class="active" role="presentation"><a href="#">Civil Unrest</a></li>
                 <li role="presentation"><a href="#">Infrastructure</a></li>
                 <li role="presentation"><a href="#">Environment</a></li>
-                <li role="presentation"><a href="#">Civil Unrest</a></li>
+                <li role="presentation"><a href="#">Food</a></li>
                 <li role="presentation"><a href="#">Crime</a></li>
                 <li role="presentation"><a href="#">Social Issues</a></li>
               </ul>
