@@ -41,6 +41,13 @@ class BaseWelcome():
         restUrl = "{0}demo/news?startDate={1}&endDate={2}&woeid={3}".format(baseUrl, startDate, endDate, woeid)
         return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
 
+    def getMappedAlerts(self):
+        startDate = self.startDate.strftime("%Y%m%d")
+        endDate = self.endDate.strftime("%Y%m%d")
+        woeid = self.selectedCountry
+        restUrl = "{0}demo/alerts?startDate={1}&endDate={2}&location={3}".format(baseUrl, startDate, endDate, woeid)
+        return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())        
+
     #subclass can override
     def onCountrySelected(self):
         pass
