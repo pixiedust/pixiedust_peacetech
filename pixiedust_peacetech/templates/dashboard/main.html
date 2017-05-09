@@ -157,8 +157,8 @@
         GroundTruth Explorer
         <target pd_target="pane-gt3{{prefix}}" pd_entity
           pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=populationType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
-        <target pd_target="pane-gt5{{prefix}}" pd_entity="violentalerts"
-          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;preserveCols=key;aggregation=SUM;rowCount=1000;kind=densitymap;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+        <target pd_target="pane-gt5{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+          <!--pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;preserveCols=key;aggregation=SUM;rowCount=1000;kind=densitymap;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"> -->
         </target>
         <target pd_target="pane-gt4{{prefix}}" pd_entity
           pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
