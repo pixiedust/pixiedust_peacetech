@@ -55,6 +55,13 @@ class PixieAppBoard(BaseWelcome):
     def selectProfile(self, profile):
         self.selectedProfile = profile
 
+        if profile == "profile1":
+            self.selectedCountry = "23424802"
+            self.countryName = "Egypt"
+        elif profile == "profile2":
+            self.selectedCountry = "23424787"
+            self.countryName = "Colombia"
+
         if not hasattr(self, 'selectedCountry'):
             self.selectedCountry = "23424802"
 
