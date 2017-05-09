@@ -23,6 +23,7 @@ class PixieAppBoard(BaseWelcome):
         self.allalerts = self.getMappedAlerts()
         self.violentalerts=self.alerts[self.alerts['violent'] == 'Violent']
         self.commentary = self.getCommentary()
+        self.hashtags = self.getHashtags()
 
     def showWatsonResults(self):
         if self.alert is None:

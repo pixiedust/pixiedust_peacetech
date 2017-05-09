@@ -51,6 +51,11 @@ class BaseWelcome():
     def getCommentary(self):
         woeid = self.selectedCountry
         restUrl = "{0}/indicators/{1}/1/commentary".format(baseUrl, woeid)
+        return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json()) 
+
+    def getHashtags(self):
+        woeid = self.selectedCountry
+        restUrl = "{0}/indicators/{1}/1/hashtags".format(baseUrl, woeid)
         return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())            
 
     #subclass can override
