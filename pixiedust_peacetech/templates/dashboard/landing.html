@@ -23,31 +23,24 @@
     margin: 10px;
     padding: 5px;
   }
-  .vis-wrapper .vis-title {
-    border-bottom: 1px solid #152935;
-    color: #152935;
-    font-size: 1.25em;
-    font-weight: 400;
-    padding: 10px 0px 5px;
-  }
-  .vis-wrapper .vis-stage {
-    overflow: hidden;
-    position: relative;
-    margin: 10px 0px 5px;
+  .vis-wrapper-dist1 {
+    height: calc(60vh - 90px);
+    margin-left: 0px;
   }
 
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="landing container">
+  <a id="nav-land-{{prefix}}" data-toggle="tab" href="#pane-land-{{prefix}}" pixiedust></a>
   <target pd_target="pane-land{{prefix}}" pd_entity="peaceidx"
           pd_options="handlerId=mapView;rendererId=google;keyFields=FIELD3;valueFields=FIELD5;aggregation=SUM;rowCount=500;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
   <div class="row">
     <div class="col-sm-12">
-      <img src="img/groundTruth-logo-banner.png" height="100px" />
+      <img src="img/groundTruth-logo-banner.png" height="80px" />
     </div>
   </div>
-  <div class="row" style="height: 500px">
+  <div class="row " style="height: 450px">
     <div class="col-sm-12">
-        <div id="pane-land{{prefix}}" class="vis-wrapper"></div>
+        <div id="pane-land{{prefix}}" class="vis-wrapper vis-wrapper-dist1"></div>
     </div>
   </div>
   <div class="row">
@@ -70,7 +63,7 @@
         <div class="col-sm-4 profile-wrapper">
           <h2>Global Beverages Inc</h2>
           <p>
-            A Foods and Beverage multinational from Switzerland that sources large amounts of coffee from Colombia and India.
+            A Food and Beverage multinational from Switzerland that sources large amounts of coffee from Colombia and India.
           </p>
           <p>
             <button type="button" class="btn btn-primary btn-lg">
@@ -85,3 +78,6 @@
     </div>
   <div>
 </div>
+<script>
+  $('#nav-land-{{prefix}}').click();
+</script>
