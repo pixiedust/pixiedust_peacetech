@@ -76,5 +76,6 @@ class BaseWelcome():
             return "<div>Error, you must define the GroudTruth DataHub credentials in a variable called headers</div>"
 
         self.endDate = datetime(2017, 4, 30)
-        self.startDate = datetime(2017, 4, 3)
+        self.startDate = datetime(2017, 3, 27)
+        self.peaceidx = self.getPeaceIndex()
         self._addHTMLTemplate(landingPage, **kwargs)

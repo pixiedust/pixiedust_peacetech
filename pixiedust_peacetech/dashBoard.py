@@ -79,5 +79,4 @@ class PixieAppBoard(BaseWelcome):
 
     @route()
     def startPage(self):
-        self.peaceidx = self.getPeaceIndex()
         return super(PixieAppBoard, self).baseWelcome("dashboard/landing.html")

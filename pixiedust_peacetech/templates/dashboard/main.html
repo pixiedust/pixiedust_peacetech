@@ -141,7 +141,7 @@
   <ul class="nav nav-tabs">
     <li><a id="nav-dist-{{prefix}}" data-toggle="tab" href="#pane-dist-{{prefix}}" pixiedust>
         Disruption Dashboard
-        <target pd_target="pane-dist1{{prefix}}" pd_entity="allalerts"
+        <target pd_target="pane-dist1{{prefix}}" pd_entity
           pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
           <!-- "handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;kind=densitymap;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"> -->
             <!--<pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
@@ -151,7 +151,7 @@
         </target>
        <!-- <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/> -->
         <target pd_target="pane-dist3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
-        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
+        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=matplotlib;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
@@ -258,12 +258,12 @@ self.onCountrySelected()
           <div class="col-md-5">
             <div class="row">
               <div class="col-sm-12">
-                <div id="pane-gt3{{prefix}}" class="vis-wrapper vis-wrapper-gt3"></div>
+                <div id="pane-gt4{{prefix}}" class="vis-wrapper vis-wrapper-gt3"></div>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12">
-                <div id="pane-gt4{{prefix}}" class="vis-wrapper vis-wrapper-gt4"></div>
+                <div id="pane-gt3{{prefix}}" class="vis-wrapper vis-wrapper-gt4"></div>
               </div>
             </div>
           </div>
