@@ -7,6 +7,7 @@
   }
   .profile-wrapper {
     padding: 15px;
+    width: 50%;
   }
   .profile-wrapper > p {
     font-size: 1.25em;
@@ -16,11 +17,37 @@
   .profile-wrapper .btn {
     margin-top: 1.5em;
   }
+  .vis-wrapper {
+    background: #fff;
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 5px;
+  }
+  .vis-wrapper .vis-title {
+    border-bottom: 1px solid #152935;
+    color: #152935;
+    font-size: 1.25em;
+    font-weight: 400;
+    padding: 10px 0px 5px;
+  }
+  .vis-wrapper .vis-stage {
+    overflow: hidden;
+    position: relative;
+    margin: 10px 0px 5px;
+  }
+
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="landing container">
+  <target pd_target="pane-land{{prefix}}" pd_entity="peaceidx"
+          pd_options="handlerId=mapView;rendererId=google;keyFields=FIELD3;valueFields=FIELD5;aggregation=SUM;rowCount=500;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
   <div class="row">
     <div class="col-sm-12">
       <img src="img/groundTruth-logo-banner.png" height="100px" />
+    </div>
+  </div>
+  <div class="row" style="height: 500px">
+    <div class="col-sm-12">
+        <div id="pane-land{{prefix}}" class="vis-wrapper"></div>
     </div>
   </div>
   <div class="row">
@@ -30,8 +57,6 @@
           <h2>Global Motors Inc</h2>
           <p>
             Automobile manufacturer from Japan with operations in Egypt, Colombia and India. 
-            Their assembly plant in Egypt at 6th of October City near Cairo has seen waves of civil unrest protests
-            in the past few weeks possibly endangering the safety and security of their employees.
           </p>
           <p>
             <button type="button" class="btn btn-primary btn-lg">
@@ -46,7 +71,6 @@
           <h2>Global Beverages Inc</h2>
           <p>
             A Foods and Beverage multinational from Switzerland that sources large amounts of coffee from Colombia and India.
-            The wet seasons in Colombia are crucial both for the crop yield as well as the overall supply chain due to constant flood and mudslide risks.
           </p>
           <p>
             <button type="button" class="btn btn-primary btn-lg">
