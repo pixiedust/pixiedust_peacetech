@@ -60,6 +60,12 @@ class BaseWelcome():
         restUrl = "{0}/indicators/{1}/1/hashtags".format(baseUrl, woeid)
         return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())            
 
+    def getPeaceIndex(self):
+        restUrl = "{0}/demo/peaceindex".format(baseUrl)
+        df = self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
+        df = df.assign(FIELD5=df.FIELD4.astype(float))
+        return df 
+
     #subclass can override
     def onCountrySelected(self):
         pass

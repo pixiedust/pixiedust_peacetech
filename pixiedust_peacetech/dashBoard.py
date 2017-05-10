@@ -65,6 +65,7 @@ class PixieAppBoard(BaseWelcome):
         if not hasattr(self, 'selectedCountry'):
             self.selectedCountry = "23424802"
 
+
         self.onCountrySelected()
 
     def updateCountry(self, country):
@@ -78,4 +79,5 @@ class PixieAppBoard(BaseWelcome):
 
     @route()
     def startPage(self):
+        self.peaceidx = self.getPeaceIndex()
         return super(PixieAppBoard, self).baseWelcome("dashboard/landing.html")
