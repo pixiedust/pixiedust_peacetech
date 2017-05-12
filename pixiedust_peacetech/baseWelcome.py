@@ -39,7 +39,32 @@ class BaseWelcome():
         endDate = self.endDate.strftime("%Y%m%d")
         woeid = self.selectedCountry
         restUrl = "{0}demo/news?startDate={1}&endDate={2}&woeid={3}".format(baseUrl, startDate, endDate, woeid)
+        temp = self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
+        temp.drop(temp.columns[[1,2,4]],axis=1, inplace=True)
+        return temp
+
+    def getMappedAlerts(self):
+        startDate = self.startDate.strftime("%Y%m%d")
+        endDate = self.endDate.strftime("%Y%m%d")
+        woeid = self.selectedCountry
+        restUrl = "{0}demo/alerts?startDate={1}&endDate={2}&location={3}".format(baseUrl, startDate, endDate, woeid)
         return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
+
+    def getCommentary(self):
+        woeid = self.selectedCountry
+        restUrl = "{0}/indicators/{1}/1/commentary".format(baseUrl, woeid)
+        return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json()) 
+
+    def getHashtags(self):
+        woeid = self.selectedCountry
+        restUrl = "{0}/indicators/{1}/1/hashtags".format(baseUrl, woeid)
+        return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())            
+
+    def getPeaceIndex(self):
+        restUrl = "{0}/demo/peaceindex".format(baseUrl)
+        df = self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
+        df = df.assign(FIELD5=df.FIELD4.astype(float))
+        return df 
 
     #subclass can override
     def onCountrySelected(self):
@@ -50,6 +75,7 @@ class BaseWelcome():
         if ShellAccess.headers is None:
             return "<div>Error, you must define the GroudTruth DataHub credentials in a variable called headers</div>"
 
-        self.endDate = datetime.today()
-        self.startDate = self.endDate - timedelta(days=14)
+        self.endDate = datetime(2017, 4, 30)
+        self.startDate = datetime(2017, 3, 27)
+        self.peaceidx = self.getPeaceIndex()
         self._addHTMLTemplate(landingPage, **kwargs)

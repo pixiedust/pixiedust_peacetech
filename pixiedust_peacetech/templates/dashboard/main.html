@@ -142,7 +142,8 @@
     <li><a id="nav-dist-{{prefix}}" data-toggle="tab" href="#pane-dist-{{prefix}}" pixiedust>
         Disruption Dashboard
         <target pd_target="pane-dist1{{prefix}}" pd_entity
-          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=evtDate,genDate,location;kind=densitymap;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+          <!-- "handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;kind=densitymap;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"> -->
             <!--<pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
               <target pd_target="pane-dist2{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
               <target pd_target="pane-dist3{{prefix}}" pd_script="self.showWatsonResults()"/>
@@ -150,15 +151,16 @@
         </target>
        <!-- <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/> -->
         <target pd_target="pane-dist3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
-        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=bokeh;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
+        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=matplotlib;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
         <target pd_target="pane-gt3{{prefix}}" pd_entity
           pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=populationType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
-        <target pd_target="pane-gt5{{prefix}}" pd_entity="violentalerts"
-          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;preserveCols=key;aggregation=SUM;rowCount=1000;kind=densitymap;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+        <target pd_target="pane-gt5{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+          <!--pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;preserveCols=key;aggregation=SUM;rowCount=1000;kind=densitymap;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"> -->
         </target>
+        <target pd_target="pane-gt6{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
         <target pd_target="pane-gt4{{prefix}}" pd_entity
           pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
         </a></li>
@@ -247,15 +249,8 @@ self.onCountrySelected()
             <div class="row">
               <div class="col-sm-12">
                 <div id="pane-gt2{{prefix}}" class="vis-wrapper vis-wrapper-gt2">
-                  <div>
-                    <div class="status-gauge status-90"><div>90%<br>Food prices</div></div>
-                  </div>
-                  <div>
-                    <div class="status-gauge status-50"><div>50%<br>Food production</div></div>
-                  </div>
-                  <div>
-                    <div class="status-gauge status-75"><div>75%<br>Crop failure</div></div>
-                  </div>
+                  <div style="text-align: center;"><img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/master/pixiedust_peacetech/img/Gauge%20-%20yellow.png" height="100px"></img><p><b>Violent</b></p></div>
+                  <div style="text-align: center;"><img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/master/pixiedust_peacetech/img/Gauge%20-%20green.png" height="100px"></img><p><b>Non-Violent</b></p></div>
                 </div>
               </div>
             </div>
@@ -263,12 +258,12 @@ self.onCountrySelected()
           <div class="col-md-5">
             <div class="row">
               <div class="col-sm-12">
-                <div id="pane-gt3{{prefix}}" class="vis-wrapper vis-wrapper-gt3"></div>
+                <div id="pane-gt4{{prefix}}" class="vis-wrapper vis-wrapper-gt3"></div>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12">
-                <div id="pane-gt4{{prefix}}" class="vis-wrapper vis-wrapper-gt4"></div>
+                <div id="pane-gt3{{prefix}}" class="vis-wrapper vis-wrapper-gt4"></div>
               </div>
             </div>
           </div>
@@ -288,7 +283,7 @@ self.onCountrySelected()
         <div class="row">
           <div class="col-md-12">
             <div id="pane-gt7{{prefix}}" class="vis-wrapper vis-wrapper-gt7">
-              commentary
+              <p>{{this.commentary.get_value(0,'text')}}</p>
             </div>
           </div>
         </div>

@@ -20,7 +20,10 @@ class PixieAppBoard(BaseWelcome):
         else:
             self.countryName = "Colombia"
         self.newsstories=self.getNews()
+        self.allalerts = self.getMappedAlerts()
         self.violentalerts=self.alerts[self.alerts['violent'] == 'Violent']
+        self.commentary = self.getCommentary()
+        self.hashtags = self.getHashtags()
 
     def showWatsonResults(self):
         if self.alert is None:
@@ -52,8 +55,16 @@ class PixieAppBoard(BaseWelcome):
     def selectProfile(self, profile):
         self.selectedProfile = profile
 
+        if profile == "profile1":
+            self.selectedCountry = "23424802"
+            self.countryName = "Egypt"
+        elif profile == "profile2":
+            self.selectedCountry = "23424787"
+            self.countryName = "Colombia"
+
         if not hasattr(self, 'selectedCountry'):
             self.selectedCountry = "23424802"
+
 
         self.onCountrySelected()
 

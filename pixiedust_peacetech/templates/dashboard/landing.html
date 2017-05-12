@@ -7,6 +7,7 @@
   }
   .profile-wrapper {
     padding: 15px;
+    width: 50%;
   }
   .profile-wrapper > p {
     font-size: 1.25em;
@@ -16,23 +17,39 @@
   .profile-wrapper .btn {
     margin-top: 1.5em;
   }
+  .vis-wrapper {
+    background: #fff;
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 5px;
+  }
+  .vis-wrapper-dist1 {
+    height: calc(60vh - 90px);
+    margin-left: 0px;
+  }
+
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="landing container">
+  <a id="nav-land-{{prefix}}" data-toggle="tab" href="#pane-land-{{prefix}}" pixiedust></a>
+  <target pd_target="pane-land{{prefix}}" pd_entity="peaceidx"
+          pd_options="handlerId=mapView;rendererId=google;keyFields=FIELD3;valueFields=FIELD5;aggregation=SUM;rowCount=500;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
   <div class="row">
     <div class="col-sm-12">
-      <img src="https://github.com/ibm-cds-labs/pixiedust_peacetech/raw/master/pixiedust_peacetech/img/groundTruth-logo-banner.png"/>
+      <img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/master/pixiedust_peacetech/img/groundTruth-logo-banner.png" height="80px" />
+    </div>
+  </div>
+  <div class="row " style="height: 400px">
+    <div class="col-sm-12">
+        <div id="pane-land{{prefix}}" class="vis-wrapper vis-wrapper-dist1"></div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
       <div class="row">
         <div class="col-sm-4 profile-wrapper">
-          <h2>Profile 1</h2>
+          <h2>Global Motors Inc</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Ut sed faucibus urna, eu fermentum nisi.
-            Vestibulum vehicula imperdiet tortor eu vestibulum.
-            In maximus id mauris id pellentesque.
+            Automobile manufacturer from Japan with operations in Egypt, Colombia and India. 
           </p>
           <p>
             <button type="button" class="btn btn-primary btn-lg">
@@ -44,12 +61,9 @@
           </p>
         </div>
         <div class="col-sm-4 profile-wrapper">
-          <h2>Profile 2</h2>
+          <h2>Global Beverages Inc</h2>
           <p>
-            Suspendisse posuere nisi vel molestie ultrices.
-            Suspendisse at hendrerit tellus.
-            Aenean viverra, turpis non mattis vulputate, massa justo blandit neque, non condimentum enim magna sit amet metus.
-            Nunc nunc felis, feugiat vel tempus quis, eleifend a lacus.
+            A Food and Beverage multinational from Switzerland that sources large amounts of coffee from Colombia and India.
           </p>
           <p>
             <button type="button" class="btn btn-primary btn-lg">
@@ -60,24 +74,10 @@
             </button>
           </p>
         </div>
-        <div class="col-sm-4 profile-wrapper">
-          <h2>Profile 3</h2>
-          <p>
-            Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.
-            Nullam id dolor id nibh ultricies vehicula ut id elit.
-            Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-            Praesent commodo cursus magna.
-          </p>
-          <p>
-            <button type="button" class="btn btn-primary btn-lg">
-              Select
-              <pd_script>
-  self.selectProfile("profile1")
-              </pd_script>
-            </button>
-          </p>
-        </div>
       </div>
     </div>
   <div>
 </div>
+<script>
+  $('#nav-land-{{prefix}}').click();
+</script>
