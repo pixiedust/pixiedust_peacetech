@@ -104,50 +104,12 @@
     height: calc(33vh - 175px);
     margin-right: 0px;
   }
-  .vis-wrapper-gt2 > div {
-    clear: both;
-  }
-  .vis-wrapper-gt2 > div:nth-child(2n) .status-gauge {
-    float: right;
-  }
-
-  .status-gauge {
-    background-color: #ff6347;
-    border-radius: 50%;
-    height: 140px;
-    margin: 0 5px;
-    position: relative;
-    width: 140px;
-  }
-
-  .status-gauge > div {
-    background-color: #fff;
-    border-radius: 50%;
-    height: 100px;
-    margin-left: 20px;
-    margin-top: 20px;
-    padding-top: 30px;
-    position: absolute;
+  .vis-wrapper-gt2 .gauge {
+    margin: 10px 0 20px 0;
     text-align: center;
-    width: 100px;
   }
-  .status-0 {
-    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(90deg, #91CF60 50%, #eee 50%, #eee);
-  }
-  .status-25 {
-    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(180deg, #91CF60 50%, #eee 50%, #eee);
-  }
-  .status-50 {
-    background-image: linear-gradient(90deg, #eee 50%, transparent 50%, transparent), linear-gradient(270deg, #91CF60 50%, #eee 50%, #eee);
-  }
-  .status-75 {
-    background-image: linear-gradient(0deg, #FEE08B 50%, transparent 50%, transparent), linear-gradient(270deg, #FEE08B 50%, #eee 50%, #eee);
-  }
-  .status-90 {
-    background-image: linear-gradient(54deg, #F55666 50%, transparent 50%, transparent), linear-gradient(270deg, #F55666 50%, #eee 50%, #eee);
-  }
-  .status-100 {
-    background-image: linear-gradient(90deg, #F55666 50%, transparent 50%, transparent), linear-gradient(270deg, #F55666 50%, #eee 50%, #eee);
+  .vis-wrapper-gt2 .gauge img {
+    height: 100px;
   }
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="dashboard">
@@ -245,19 +207,19 @@ self.onCountrySelected()
           <div class="col-sm-12">
             <div id="pane-gt1{{prefix}}" class="vis-wrapper vis-wrapper-gt1">
               <ul class="nav nav-pills nav-stacked">
-                <li class="active" role="presentation"><a data-toggle="tab" pixiedust href="#pane-gt-inner1-{{prefix}}">
+                <li class="active" role="presentation"><a data-toggle="tab" data-pt-cat="food" pixiedust href="#pane-gt-inner1-{{prefix}}">
                     Food
                     <target pd_target="pane-gt3{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"/>
                     <target pd_target="pane-gt4{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
                   </a></li>
-                <li role="presentation"><a data-toggle="tab" pixiedust href="#pane-gt-inner1-{{prefix}}">
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="infrastructure" pixiedust href="#pane-gt-inner1-{{prefix}}">
                     Infrastructure
                     <target pd_target="pane-gt4{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
                   </a></li>
-                <li role="presentation"><a data-toggle="tab" pixiedust href="#pane-gt-inner2-{{prefix}}">Environment</a></li>
-                <li role="presentation"><a data-toggle="tab" pixiedust href="#pane-gt-inner1-{{prefix}}">Civil Unrest</a></li>
-                <li role="presentation"><a data-toggle="tab" pixiedust href="#pane-gt-inner1-{{prefix}}">Crime</a></li>
-                <li role="presentation"><a data-toggle="tab" pixiedust href="#pane-gt-inner1-{{prefix}}">Social Issues</a></li>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="environment" pixiedust href="#pane-gt-inner2-{{prefix}}">Environment</a></li>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="civilunrest" pixiedust href="#pane-gt-inner1-{{prefix}}">Civil Unrest</a></li>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="crime" pixiedust href="#pane-gt-inner1-{{prefix}}">Crime</a></li>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="socialissues" pixiedust href="#pane-gt-inner1-{{prefix}}">Social Issues</a></li>
               </ul>
             </div>
           </div>
@@ -268,10 +230,7 @@ self.onCountrySelected()
           <div class="col-md-2">
             <div class="row">
               <div class="col-sm-12">
-                <div id="pane-gt2{{prefix}}" class="vis-wrapper vis-wrapper-gt2">
-                  <div style="text-align: center;"><img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/master/pixiedust_peacetech/img/Gauge%20-%20yellow.png" height="100px"></img><p><b>Violent</b></p></div>
-                  <div style="text-align: center;"><img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/master/pixiedust_peacetech/img/Gauge%20-%20green.png" height="100px"></img><p><b>Non-Violent</b></p></div>
-                </div>
+                <div id="pane-gt2{{prefix}}" class="vis-wrapper vis-wrapper-gt2"> </div>
               </div>
             </div>
           </div>
@@ -385,5 +344,60 @@ self.onCountrySelected()
   </div>
 </div>
 <script>
+  //hard coded values for now
+  var temp = '<div class="gauge"><img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/master/pixiedust_peacetech/img/Gauge%20-%20COLOR.png"/><p><strong>TITLE</strong></p></div>';
+  var catValues = {
+    "food": {
+      "Food price": 80,
+      "Food production": 30,
+      "Crop failure": 60
+    },
+    "infrastructure": {
+      "Transportation": 80,
+      "Telecom": 60,
+      "Power": 30
+    },
+    "environment": {
+      "Food": 80,
+      "Natural resources": 30,
+      "Drought": 60,
+      "Temperature": 75,
+      "Pollution": 10
+    },
+    "civilunrest": {
+      "Violent": 20,
+      "Non-violent": 60
+    },
+    "crime": {
+      "Violent": 30,
+      "Non-violent": 50,
+      "Terrorism": 70,
+    },
+    "socialissues": {
+      "Missing persons": 90,
+      "Corruption": 60,
+      "Migration & displacement": 10,
+      "Discrimination": 70,
+      "Gender based violence": 75
+    }
+  }
+  function setGauges(values) {
+    $('#pane-gt2{{prefix}}').empty();
+    if (values) {
+      var c = 'green';
+      for (val in values) {
+        if (values[val] < 40) c = 'red';
+        else if (values[val] < 80) c = 'yellow';
+
+        var h = temp.replace(/COLOR/g, c).replace(/TITLE/g, val)
+        $('#pane-gt2{{prefix}}').append(h);
+      }
+    }
+  }
   $('#nav-dist-{{prefix}}').click();
+  $('#pane-gt1{{prefix}} a').on('click', function() {
+    var cat = $(this).data('ptCat');
+    setGauges(catValues[cat]);
+  });
+  setGauges(catValues['food']);
 </script>
