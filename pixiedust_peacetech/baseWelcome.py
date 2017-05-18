@@ -64,7 +64,19 @@ class BaseWelcome():
         restUrl = "{0}/demo/peaceindex".format(baseUrl)
         df = self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
         df = df.assign(FIELD5=df.FIELD4.astype(float))
-        return df 
+        return df
+
+    def getTemperature(self):
+        startDate = self.startDate.strftime("%Y%m%d")
+        endDate = self.endDate.strftime("%Y%m%d")
+        restUrl = "{0}/measuredcontent/38?placeId=368148&startTime={1}&endTime={2}".format(baseUrl, startDate, endDate)
+        return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
+
+    def getPrecipitation(self):
+        startDate = self.startDate.strftime("%Y%m%d")
+        endDate = self.endDate.strftime("%Y%m%d")
+        restUrl = "{0}/measuredcontent/39?placeId=368148&startTime={1}&endTime={2}".format(baseUrl, startDate, endDate)
+        return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
 
     #subclass can override
     def onCountrySelected(self):

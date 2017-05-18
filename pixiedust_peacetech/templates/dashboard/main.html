@@ -214,11 +214,17 @@ self.onCountrySelected()
                     <target pd_target="pane-cu3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
                     <target pd_target="pane-cu4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
                   </a></li>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="environment" pixiedust href="#pane-gt-env-{{prefix}}">
+                  Environment
+                    <target pd_target="pane-env3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
+                    <target pd_target="pane-env4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
+                    <target pd_target="pane-env12{{prefix}}" pd_entity="temperature" pd_options="handlerId=lineChart;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
+                    <target pd_target="pane-env13{{prefix}}" pd_entity="precipitation" pd_options="handlerId=barChart;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
+                  </a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="infrastructure" pixiedust href="#pane-gt-inner1-{{prefix}}">
                     Infrastructure
                     <target pd_target="pane-gt4{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
                   </a></li>
-                <li role="presentation"><a data-toggle="tab" data-pt-cat="environment" pixiedust href="#pane-gt-inner2-{{prefix}}">Environment</a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="food" pixiedust href="#pane-gt-inner1-{{prefix}}">Food</a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="crime" pixiedust href="#pane-gt-inner1-{{prefix}}">Crime</a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="socialissues" pixiedust href="#pane-gt-inner1-{{prefix}}">Social Issues</a></li>
@@ -251,6 +257,47 @@ self.onCountrySelected()
                   <div class="row">
                     <div class="col-sm-12">
                       <div id="pane-cu4{{prefix}}" class="vis-wrapper vis-wrapper-gt6"></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div id="pane-gt-env-{{prefix}}" class="row tab-pane fade in active">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-env1{{prefix}}" class="vis-wrapper vis-wrapper-gt4">
+                        <img src="img/giphy.gif" width="inherit"></img>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-env3{{prefix}}" class="vis-wrapper vis-wrapper-gt3"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-env2{{prefix}}" class="vis-wrapper vis-wrapper-gt5">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div id="pane-env12{{prefix}}" class="vis-wrapper vis-wrapper-gt12">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div id="pane-env13{{prefix}}" class="vis-wrapper vis-wrapper-gt13">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-env4{{prefix}}" class="vis-wrapper vis-wrapper-gt6"></div>
                     </div>
                   </div>
                 </div>
