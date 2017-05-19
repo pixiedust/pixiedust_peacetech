@@ -214,7 +214,7 @@ self.onCountrySelected()
                   Environment
                     <target pd_target="pane-env3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
                     <target pd_target="pane-env4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
-                    <target pd_target="pane-env12{{prefix}}" pd_entity="temperature" pd_options="handlerId=lineChart;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
+                    <target pd_target="pane-env12{{prefix}}" pd_entity="temperature" pd_options="handlerId=lineChart;rendererId=matplotlib;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
                     <target pd_target="pane-env13{{prefix}}" pd_entity="precipitation" pd_options="handlerId=barChart;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
                   </a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="infrastructure" pixiedust href="#pane-gt-inner1-{{prefix}}">Infrastructure</a></li>
@@ -227,7 +227,7 @@ self.onCountrySelected()
         </div>
       </div>
       <div class="col-md-10">
-        <div class="row tab-content">
+        <div class="row tab-content" style="height: 85%">
             <div id="pane-gt-cu-{{prefix}}" class="row tab-pane fade in active">
                 <div class="col-md-6">
                   <div class="row">
@@ -259,7 +259,7 @@ self.onCountrySelected()
                   <div class="row">
                     <div class="col-sm-12">
                       <div id="pane-env1{{prefix}}" class="vis-wrapper vis-wrapper-gt4">
-                        <img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/quotes-fix/pixiedust_peacetech/img/giphy.gif"></img>
+                        <img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/quotes-fix/pixiedust_peacetech/img/giphy.gif" height="100%" width="100%"></img>
                       </div>
                     </div>
                   </div>
