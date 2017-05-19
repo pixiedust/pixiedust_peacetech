@@ -130,14 +130,10 @@
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
-        <!--<target pd_target="pane-gt5{{prefix}}" pd_entity
-          pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=populationType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>-->
-       <!-- <target pd_target="pane-gt3{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"> -->
-          <!--pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;preserveCols=key;aggregation=SUM;rowCount=1000;kind=densitymap;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"> 
-        </target> -->
-        <!--<target pd_target="pane-gt6{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>-->
-       <!-- <target pd_target="pane-gt4{{prefix}}" pd_entity
-          pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/> -->
+        <target pd_target="pane-cu1{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"/>
+        <target pd_target="pane-cu2{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+        <target pd_target="pane-cu3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
+        <target pd_target="pane-cu4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
         </a></li>
     <li class="disabled">
       <div class="dropdown">
@@ -221,10 +217,7 @@ self.onCountrySelected()
                     <target pd_target="pane-env12{{prefix}}" pd_entity="temperature" pd_options="handlerId=lineChart;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
                     <target pd_target="pane-env13{{prefix}}" pd_entity="precipitation" pd_options="handlerId=barChart;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
                   </a></li>
-                <li role="presentation"><a data-toggle="tab" data-pt-cat="infrastructure" pixiedust href="#pane-gt-inner1-{{prefix}}">
-                    Infrastructure
-                    <target pd_target="pane-gt4{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
-                  </a></li>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="infrastructure" pixiedust href="#pane-gt-inner1-{{prefix}}">Infrastructure</a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="food" pixiedust href="#pane-gt-inner1-{{prefix}}">Food</a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="crime" pixiedust href="#pane-gt-inner1-{{prefix}}">Crime</a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="socialissues" pixiedust href="#pane-gt-inner1-{{prefix}}">Social Issues</a></li>
@@ -261,7 +254,7 @@ self.onCountrySelected()
                   </div>
                 </div>
             </div>
-            <div id="pane-gt-env-{{prefix}}" class="row tab-pane fade in active">
+            <div id="pane-gt-env-{{prefix}}" class="row tab-pane">
                 <div class="col-md-6">
                   <div class="row">
                     <div class="col-sm-12">
@@ -302,7 +295,7 @@ self.onCountrySelected()
                   </div>
                 </div>
             </div>
-            <div id="pane-gt-inner1-{{prefix}}" class="row tab-pane fade in active">
+            <div id="pane-gt-inner1-{{prefix}}" class="row tab-pane">
                 <div class="col-md-6">
                   <div class="row">
                     <div class="col-sm-12">
