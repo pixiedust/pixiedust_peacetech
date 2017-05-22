@@ -161,8 +161,8 @@ self.updateCountry("23424787")
           Go
           <pd_script>
 from datetime import datetime
-self.endDate = datetime.strptime($val(edDate{{prefix}}), "%Y-%m-%d")
-self.startDate = datetime.strptime($val(sdDate{{prefix}}), "%Y-%m-%d")
+self.endDate = datetime.strptime("$val(edDate{{prefix}})", "%Y-%m-%d")
+self.startDate = datetime.strptime("$val(sdDate{{prefix}})", "%Y-%m-%d")
 self.onCountrySelected()
           </pd_script>
         </button>
