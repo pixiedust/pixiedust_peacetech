@@ -24,6 +24,8 @@ class PixieAppBoard(BaseWelcome):
         self.violentalerts=self.alerts[self.alerts['violent'] == 'Violent']
         self.commentary = self.getCommentary()
         self.hashtags = self.getHashtags()
+        self.temperature = self.getTemperature()
+        self.precipitation = self.getPrecipitation()
 
     def showWatsonResults(self):
         if self.alert is None:

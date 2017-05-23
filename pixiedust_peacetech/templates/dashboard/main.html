@@ -130,14 +130,10 @@
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
-        <!--<target pd_target="pane-gt5{{prefix}}" pd_entity
-          pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=populationType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>-->
-        <target pd_target="pane-gt3{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
-          <!--pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;preserveCols=key;aggregation=SUM;rowCount=1000;kind=densitymap;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"> -->
-        </target>
-        <!--<target pd_target="pane-gt6{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>-->
-        <target pd_target="pane-gt4{{prefix}}" pd_entity
-          pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+        <target pd_target="pane-cu1{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"/>
+        <target pd_target="pane-cu2{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+        <target pd_target="pane-cu3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
+        <target pd_target="pane-cu4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
         </a></li>
     <li class="disabled">
       <div class="dropdown">
@@ -207,17 +203,22 @@ self.onCountrySelected()
           <div class="col-sm-12">
             <div id="pane-gt1{{prefix}}" class="vis-wrapper vis-wrapper-gt1">
               <ul class="nav nav-pills nav-stacked">
-                <li class="active" role="presentation"><a data-toggle="tab" data-pt-cat="food" pixiedust href="#pane-gt-inner1-{{prefix}}">
-                    Food
-                    <target pd_target="pane-gt3{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"/>
-                    <target pd_target="pane-gt4{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+                <li class="active" role="presentation"><a data-toggle="tab" data-pt-cat="civilunrest" pixiedust href="#pane-gt-cu-{{prefix}}">
+                    Civil Unrest
+                    <target pd_target="pane-cu1{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"/>
+                    <target pd_target="pane-cu2{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+                    <target pd_target="pane-cu3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
+                    <target pd_target="pane-cu4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
                   </a></li>
-                <li role="presentation"><a data-toggle="tab" data-pt-cat="infrastructure" pixiedust href="#pane-gt-inner1-{{prefix}}">
-                    Infrastructure
-                    <target pd_target="pane-gt4{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="environment" pixiedust href="#pane-gt-env-{{prefix}}">
+                  Environment
+                    <target pd_target="pane-env3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
+                    <target pd_target="pane-env4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
+                    <target pd_target="pane-env12{{prefix}}" pd_entity="temperature" pd_options="handlerId=lineChart;rendererId=matplotlib;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
+                    <target pd_target="pane-env13{{prefix}}" pd_entity="precipitation" pd_options="handlerId=barChart;keyFields=time;valueFields=value;aggregation=SUM;rowCount=500;legend=false;timeseries=false"/>
                   </a></li>
-                <li role="presentation"><a data-toggle="tab" data-pt-cat="environment" pixiedust href="#pane-gt-inner2-{{prefix}}">Environment</a></li>
-                <li role="presentation"><a data-toggle="tab" data-pt-cat="civilunrest" pixiedust href="#pane-gt-inner1-{{prefix}}">Civil Unrest</a></li>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="infrastructure" pixiedust href="#pane-gt-inner1-{{prefix}}">Infrastructure</a></li>
+                <li role="presentation"><a data-toggle="tab" data-pt-cat="food" pixiedust href="#pane-gt-inner1-{{prefix}}">Food</a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="crime" pixiedust href="#pane-gt-inner1-{{prefix}}">Crime</a></li>
                 <li role="presentation"><a data-toggle="tab" data-pt-cat="socialissues" pixiedust href="#pane-gt-inner1-{{prefix}}">Social Issues</a></li>
               </ul>
@@ -226,16 +227,75 @@ self.onCountrySelected()
         </div>
       </div>
       <div class="col-md-10">
-        <div class="row">
-          <div class="col-md-2">
-            <div class="row">
-              <div class="col-sm-12">
-                <div id="pane-gt2{{prefix}}" class="vis-wrapper vis-wrapper-gt2"> </div>
-              </div>
+        <div class="row tab-content" style="height: 85%">
+            <div id="pane-gt-cu-{{prefix}}" class="row tab-pane fade in active">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-cu1{{prefix}}" class="vis-wrapper vis-wrapper-gt4"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-cu3{{prefix}}" class="vis-wrapper vis-wrapper-gt3"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-cu2{{prefix}}" class="vis-wrapper vis-wrapper-gt5"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-cu4{{prefix}}" class="vis-wrapper vis-wrapper-gt6"></div>
+                    </div>
+                  </div>
+                </div>
             </div>
-          </div>
-          <div class="col-md-10 tab-content">
-            <div id="pane-gt-inner1-{{prefix}}" class="row tab-pane fade in active">
+            <div id="pane-gt-env-{{prefix}}" class="row tab-pane">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-env1{{prefix}}" class="vis-wrapper vis-wrapper-gt4">
+                        <img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/quotes-fix/pixiedust_peacetech/img/giphy.gif" height="100%" width="100%"></img>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-env3{{prefix}}" class="vis-wrapper vis-wrapper-gt3"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-env2{{prefix}}" class="vis-wrapper vis-wrapper-gt5">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div id="pane-env12{{prefix}}" class="vis-wrapper vis-wrapper-gt12">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div id="pane-env13{{prefix}}" class="vis-wrapper vis-wrapper-gt13">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="pane-env4{{prefix}}" class="vis-wrapper vis-wrapper-gt6"></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div id="pane-gt-inner1-{{prefix}}" class="row tab-pane">
                 <div class="col-md-6">
                   <div class="row">
                     <div class="col-sm-12">
@@ -330,7 +390,6 @@ self.onCountrySelected()
                   </div>
                 </div>
             </div>
-          </div>
         </div>
         <div class="row">
           <div class="col-md-12">
@@ -395,9 +454,9 @@ self.onCountrySelected()
     }
   }
   $('#nav-dist-{{prefix}}').click();
-  $('#pane-gt1{{prefix}} a').on('click', function() {
+  /*$('#pane-gt1{{prefix}} a').on('click', function() {
     var cat = $(this).data('ptCat');
     setGauges(catValues[cat]);
   });
-  setGauges(catValues['food']);
+  setGauges(catValues['food']); */
 </script>
