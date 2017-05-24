@@ -20,8 +20,9 @@ class PixieAppBoard(BaseWelcome):
         else:
             self.countryName = "Colombia"
         self.newsstories=self.getNews()
-        self.allalerts = self.getMappedAlerts()
-        self.violentalerts=self.alerts[self.alerts['violent'] == 'Violent']
+        self.histalerts=self.getHistAlerts(self.selectedCountry)
+        self.histalerts['count'] = 1
+        self.violentalerts=self.histalerts[self.histalerts['violent'] == 'Violent']
         self.commentary = self.getCommentary()
         self.hashtags = self.getHashtags()
         self.temperature = self.getTemperature()
