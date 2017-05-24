@@ -111,7 +111,7 @@
   }
   .gauge img {
     height: 90%;
-    width: 90%;
+    width: 80%;
   }
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="dashboard">
@@ -127,8 +127,12 @@
             </pd_event_handler>-->
         </target>
        <!-- <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/> -->
-        <target pd_target="pane-dist3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
-        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=matplotlib;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
+        <target pd_target="pane-dist3{{prefix}}" pd_entity="alerts" pd_options="handlerId=dataframe;table_noschema=true">
+            <pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
+              <target pd_target="pane-dist4{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
+            </pd_event_handler>
+        </target>
+        <!--<target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=matplotlib;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/> -->
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
@@ -424,7 +428,6 @@ self.onCountrySelected()
          var c = 'red';
         if (indicValues[val] < 40) c = 'green';
         else if (indicValues[val] < 80) c = 'yellow';
-        console.info(val + " -- " + indicValues[val] + " ---- " + c);
         var h = temp.replace(/COLOR/g, c).replace(/TITLE/g, val);
         $('#'+divid).append(h);
       }
