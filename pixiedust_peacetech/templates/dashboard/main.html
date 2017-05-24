@@ -127,7 +127,7 @@
             </pd_event_handler>-->
         </target>
        <!-- <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/> -->
-        <target pd_target="pane-dist3{{prefix}}" pd_entity="alerts" pd_options="handlerId=dataframe;table_noschema=true">
+        <target pd_target="pane-dist3{{prefix}}" pd_entity="alerts" pd_options="handlerId=dataframe;table_noschema=true;showcols=eventType,evtDate,key,place,populationType,type,violent">
             <pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
               <target pd_target="pane-dist4{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
             </pd_event_handler>
@@ -137,7 +137,7 @@
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
         <target pd_target="pane-cu1{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"/>
-        <target pd_target="pane-cu2{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+        <target pd_target="pane-cu2{{prefix}}" pd_entity="histalerts" pd_options="handlerId=barChart;keyFields=evtDate;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
         <target pd_target="pane-cu3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
         <target pd_target="pane-cu4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
         </a></li>
@@ -161,14 +161,14 @@ self.updateCountry("23424787")
             </a></li>
         </ul>
       </div>
-      <input id = "sdDate{{prefix}}" type="date" name="startDate" value="{{this.startDate.strftime("%Y-%m-%d")}}">
-      <input id = "edDate{{prefix}}" type="date" name="endDate" value="{{this.endDate.strftime("%Y-%m-%d")}}">
+      <input id = "slDate{{prefix}}" type="date" name="selDate" value="{{this.selDate.strftime("%Y-%m-%d")}}">
       <button type="submit" class="btn btn-primary">
           Go
           <pd_script>
-from datetime import datetime
-self.endDate = datetime.strptime("$val(edDate{{prefix}})", "%Y-%m-%d")
-self.startDate = datetime.strptime("$val(sdDate{{prefix}})", "%Y-%m-%d")
+from datetime import datetime, timedelta
+self.selDate = datetime.strptime("$val(slDate{{prefix}})", "%Y-%m-%d")
+self.endDate = self.selDate + timedelta(days=6)
+self.startDate = self.selDate - timedelta(days=27)
 self.onCountrySelected()
           </pd_script>
         </button>
@@ -214,7 +214,7 @@ self.onCountrySelected()
                 <li class="active" role="presentation"><a data-toggle="tab" data-pt-cat="civilunrest" pixiedust href="#pane-gt-cu-{{prefix}}">
                     Civil Unrest
                     <target pd_target="pane-cu1{{prefix}}" pd_entity="violentalerts" pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;kind=densitymap;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"/>
-                    <target pd_target="pane-cu2{{prefix}}" pd_entity pd_options="handlerId=barChart;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
+        <target pd_target="pane-cu2{{prefix}}" pd_entity="histalerts" pd_options="handlerId=barChart;keyFields=evtDate;valueFields=count;aggregation=SUM;rowCount=500;clusterby=eventType;timeseries=false;charttype=stacked;nostore_figureOnly=true"/>
                     <target pd_target="pane-cu3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
                     <target pd_target="pane-cu4{{prefix}}" pd_entity="hashtags" pd_options="handlerId=dataframe;table_noschema=true"/>
                   </a></li>
