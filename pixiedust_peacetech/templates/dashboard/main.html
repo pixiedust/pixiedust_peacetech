@@ -104,12 +104,14 @@
     height: calc(33vh - 175px);
     margin-right: 0px;
   }
-  .vis-wrapper-gt2 .gauge {
+  .gauge {
     margin: 10px 0 20px 0;
     text-align: center;
+    height: 100%;
   }
-  .vis-wrapper-gt2 .gauge img {
-    height: 100px;
+  .gauge img {
+    height: 90%;
+    width: 80%;
   }
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="dashboard">
@@ -117,7 +119,7 @@
     <li><a id="nav-dist-{{prefix}}" data-toggle="tab" href="#pane-dist-{{prefix}}" pixiedust>
         Disruption Dashboard
         <target pd_target="pane-dist1{{prefix}}" pd_entity
-          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g">
+          pd_options="handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;aggregation=SUM;rowCount=500;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g;basemap=streets-v9;kind=chloropleth-cluster">
           <!-- "handlerId=mapView;rendererId=mapbox;keyFields=lat,long;valueFields=count;kind=densitymap;preserveCols=key;aggregation=COUNT;rowCount=1000;nostore_figureOnly=true;mapboxtoken=pk.eyJ1IjoidmFiYXJib3NhIiwiYSI6ImNqMDE4a2lrZzA2NjkzMm94bXZqdTk4amYifQ.rfxH46T8UoWwxRegb3_X6g"> -->
             <!--<pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
               <target pd_target="pane-dist2{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
@@ -125,8 +127,12 @@
             </pd_event_handler>-->
         </target>
        <!-- <target pd_target="pane-dist2{{prefix}}" pd_entity pd_options="handlerId=dataframe;table_noschema=true"/> -->
-        <target pd_target="pane-dist3{{prefix}}" pd_entity="newsstories" pd_options="handlerId=dataframe;table_noschema=true"/>
-        <target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=matplotlib;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/>
+        <target pd_target="pane-dist3{{prefix}}" pd_entity="alerts" pd_options="handlerId=dataframe;table_noschema=true">
+            <pd_event_handler pd_script="self.alert=self.getAlert(eventInfo['key']) if 'key' in eventInfo else None">
+              <target pd_target="pane-dist4{{prefix}}" pd_entity="alert" pd_options="handlerId=dataframe;table_noschema=true"/>
+            </pd_event_handler>
+        </target>
+        <!--<target pd_target="pane-dist4{{prefix}}" pd_entity pd_options="handlerId=barChart;rendererId=matplotlib;keyFields=weekStart;valueFields=count;aggregation=SUM;rowCount=1000;legend=true;nostore_figureOnly=true;clusterby=type;charttype=stacked"/> -->
       </a></li>
     <li><a id="nav-gt-{{prefix}}" data-toggle="tab" href="#pane-gt-{{prefix}}" pixiedust>
         GroundTruth Explorer
@@ -171,8 +177,10 @@ self.onCountrySelected()
 
   <div class="tab-content container-fluid">
     <div id="pane-dist-{{prefix}}" class="row tab-pane tab-pane-dist fade in active" >
+      <div class="row" style="height:12%" id="gaugerow">
+      </div>
       <div class="col-sm-7" >
-        <div class="row" style="height:100%">
+        <div class="row" style="height:88%">
           <div class="col-sm-12" style="height:100%">
             <div id="pane-dist1{{prefix}}" class="vis-wrapper vis-wrapper-dist1"></div>
           </div>
@@ -184,12 +192,12 @@ self.onCountrySelected()
         </div>-->
       </div>
       <div class="col-sm-5" >
-        <div class="row" style="height:50%">
+        <div class="row" style="height:44%">
           <div class="col-sm-12" style="height:100%">
             <div id="pane-dist3{{prefix}}" class="vis-wrapper vis-wrapper-dist3"></div>
           </div>
         </div>
-        <div class="row" style="height:50%">
+        <div class="row" style="height:44%">
           <div class="col-sm-12" style="height:100%">
             <div id="pane-dist4{{prefix}}" class="vis-wrapper vis-wrapper-dist4"></div>
           </div>
@@ -404,7 +412,27 @@ self.onCountrySelected()
 </div>
 <script>
   //hard coded values for now
-  var temp = '<div class="gauge"><img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/master/pixiedust_peacetech/img/Gauge%20-%20COLOR.png"/><p><strong>TITLE</strong></p></div>';
+  var temp = '<div class="gauge col-sm-2"><img src="https://raw.githubusercontent.com/nicklondhe/pixiedust_peacetech/master/pixiedust_peacetech/img/Gauge%20-%20COLOR.png"/><p><h4>TITLE</h4></p></div>';
+  var indicValues = {
+    "Civil Unrest" : 70,
+    "Environment" : 90,
+    "Infrastructure" : 20,
+    "Social Issues" : 70,
+    "Crime" : 20,
+    "Food" : 20
+  }
+
+  function setTopGauges(divid) {
+    $("#"+divid).empty();
+      for (val in indicValues) {
+         var c = 'red';
+        if (indicValues[val] < 40) c = 'green';
+        else if (indicValues[val] < 80) c = 'yellow';
+        var h = temp.replace(/COLOR/g, c).replace(/TITLE/g, val);
+        $('#'+divid).append(h);
+      }
+  }
+
   var catValues = {
     "food": {
       "Food price": 80,
@@ -454,6 +482,7 @@ self.onCountrySelected()
     }
   }
   $('#nav-dist-{{prefix}}').click();
+  setTopGauges("gaugerow")
   /*$('#pane-gt1{{prefix}} a').on('click', function() {
     var cat = $(this).data('ptCat');
     setGauges(catValues[cat]);
