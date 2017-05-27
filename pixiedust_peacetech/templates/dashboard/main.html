@@ -113,6 +113,16 @@
     height: 90%;
     width: 80%;
   }
+
+  .title-div {
+    z-index: 1;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    opacity: 0.8;
+    background-color: #fffeff;
+    font-size: 15px;
+  }
 </style>
 <div pixiedust="{{pd_controls|htmlAttribute}}" class="dashboard">
   <ul class="nav nav-tabs">
@@ -182,7 +192,10 @@ self.onCountrySelected()
       <div class="col-sm-7" >
         <div class="row" style="height:88%">
           <div class="col-sm-12" style="height:100%">
-            <div id="pane-dist1{{prefix}}" class="vis-wrapper vis-wrapper-dist1"></div>
+            <div class="title-div">Alerts Map</div>
+            <div id="pane-dist1{{prefix}}" class="vis-wrapper vis-wrapper-dist1">
+            </div>
+
           </div>
         </div>
         <!--<div class="row">
@@ -194,11 +207,13 @@ self.onCountrySelected()
       <div class="col-sm-5" >
         <div class="row" style="height:44%">
           <div class="col-sm-12" style="height:100%">
+            <div class="title-div">Alert List</div>
             <div id="pane-dist3{{prefix}}" class="vis-wrapper vis-wrapper-dist3"></div>
           </div>
         </div>
         <div class="row" style="height:44%">
           <div class="col-sm-12" style="height:100%">
+            <div class="title-div">Audit Trail</div>
             <div id="pane-dist4{{prefix}}" class="vis-wrapper vis-wrapper-dist4"></div>
           </div>
         </div>
@@ -482,7 +497,7 @@ self.onCountrySelected()
     }
   }
   $('#nav-dist-{{prefix}}').click();
-  setTopGauges("gaugerow")
+  setTopGauges("gaugerow");
   /*$('#pane-gt1{{prefix}} a').on('click', function() {
     var cat = $(this).data('ptCat');
     setGauges(catValues[cat]);
