@@ -17,8 +17,17 @@ class BaseWelcome():
 
     # @cache(fieldName="_alerts")
     def getAlerts(self, location=None):
-        startDate = self.startDate.strftime("%Y%m%d")
+        startDate = self.selDate.strftime("%Y%m%d")
         endDate = self.endDate.strftime("%Y%m%d")
+        if location is not None and endDate is not None:
+            restUrl = "{0}alerts/search?startDate={1}&endDate={2}&location={3}".format(baseUrl, startDate, endDate, location)
+            return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
+        else:
+            return self.normalize(requests.get(baseUrl+"alerts?eventDate="+startDate, headers=headers).json())
+
+    def getHistAlerts(self, location=None):
+        startDate = self.startDate.strftime("%Y%m%d")
+        endDate = self.selDate.strftime("%Y%m%d")
         if location is not None and endDate is not None:
             restUrl = "{0}alerts/search?startDate={1}&endDate={2}&location={3}".format(baseUrl, startDate, endDate, location)
             return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
@@ -36,19 +45,12 @@ class BaseWelcome():
     
     def getNews(self):
         startDate = self.startDate.strftime("%Y%m%d")
-        endDate = self.endDate.strftime("%Y%m%d")
+        endDate = self.selDate.strftime("%Y%m%d")
         woeid = self.selectedCountry
         restUrl = "{0}demo/news?startDate={1}&endDate={2}&woeid={3}".format(baseUrl, startDate, endDate, woeid)
         temp = self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
         temp.drop(temp.columns[[1,2,4]],axis=1, inplace=True)
         return temp
-
-    def getMappedAlerts(self):
-        startDate = self.startDate.strftime("%Y%m%d")
-        endDate = self.endDate.strftime("%Y%m%d")
-        woeid = self.selectedCountry
-        restUrl = "{0}demo/alerts?startDate={1}&endDate={2}&location={3}".format(baseUrl, startDate, endDate, woeid)
-        return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
 
     def getCommentary(self):
         woeid = self.selectedCountry
@@ -68,13 +70,13 @@ class BaseWelcome():
 
     def getTemperature(self):
         startDate = self.startDate.strftime("%Y%m%d")
-        endDate = self.endDate.strftime("%Y%m%d")
+        endDate = self.selDate.strftime("%Y%m%d")
         restUrl = "{0}/measuredcontent/38?placeId=368148&startTime={1}&endTime={2}".format(baseUrl, startDate, endDate)
         return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
 
     def getPrecipitation(self):
         startDate = self.startDate.strftime("%Y%m%d")
-        endDate = self.endDate.strftime("%Y%m%d")
+        endDate = self.selDate.strftime("%Y%m%d")
         restUrl = "{0}/measuredcontent/39?placeId=368148&startTime={1}&endTime={2}".format(baseUrl, startDate, endDate)
         return self.normalize(requests.get(restUrl, headers=ShellAccess.headers).json())
 
@@ -87,7 +89,8 @@ class BaseWelcome():
         if ShellAccess.headers is None:
             return "<div>Error, you must define the GroudTruth DataHub credentials in a variable called headers</div>"
 
-        self.endDate = datetime(2017, 4, 30)
-        self.startDate = datetime(2017, 3, 27)
+        self.selDate = datetime(2017, 4, 17)
+        self.endDate = self.selDate + timedelta(days=6)
+        self.startDate = self.selDate - timedelta(days=27)
         self.peaceidx = self.getPeaceIndex()
         self._addHTMLTemplate(landingPage, **kwargs)
